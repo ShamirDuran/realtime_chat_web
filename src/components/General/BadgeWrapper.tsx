@@ -1,9 +1,7 @@
-import { IconButton, Tooltip } from '@mui/material'
-import Badge, { BadgeProps } from '@mui/material/Badge'
-import { Theme, styled } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
+import { BadgeProps, Badge } from '@mui/material'
 
 interface StyledBadgeProps extends BadgeProps {
-  theme?: Theme
   bgcolor?: string
   size?: number
   useRipple?: boolean
@@ -44,7 +42,7 @@ const StyledBadgeWrapper = styled(
   },
 }))
 
-export const StyledBadge = ({
+export const BadgeWrapper = ({
   vertical = 'top',
   horizontal = 'right',
   bgcolor,
@@ -80,25 +78,3 @@ export const StyledBadge = ({
     </StyledBadgeWrapper>
   )
 }
-
-interface WithTooltipProps {
-  tooltipTitle?: string
-  [x: string]: any
-}
-
-const withTooltip = (Component: React.ComponentType) => {
-  return styled(({ tooltipTitle = '', ...props }: WithTooltipProps) => (
-    <Tooltip title={tooltipTitle} arrow>
-      <Component {...props} />
-    </Tooltip>
-  ))(({ theme }) => ({
-    '&.MuiIconButton-root': {
-      backgroundColor: theme.palette.grey[200],
-      '&:hover': {
-        backgroundColor: theme.palette.action.focus,
-      },
-    },
-  }))
-}
-
-export const StyledIconButton = withTooltip(styled(IconButton)``)

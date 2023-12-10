@@ -4,7 +4,7 @@ import { ActiveChat } from './ActiveChat'
 
 export const DashboardPage = () => {
   return (
-    <Stack px={2} py={2} direction='row'>
+    <Stack direction='row'>
       <MainPanel />
       <ActiveChat />
 

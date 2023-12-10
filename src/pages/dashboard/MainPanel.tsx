@@ -9,7 +9,9 @@ export const MainPanel = () => {
       sx={{
         position: 'relative',
         height: '100vh',
-        borderRight: '1px solid black',
+        borderRight: 1,
+        borderRightColor: theme.palette.divider,
+        borderRightStyle: 'solid',
       }}
     >
       <Stack>
