@@ -27,21 +27,25 @@ export const ActionHeader = () => {
 
         {/* User info */}
         <Stack
-          sx={{
-            cursor: 'pointer',
-          }}
-          onClick={() => {
-            console.log('Config modal')
-          }}
+          sx={{ cursor: 'pointer', userSelect: 'none' }}
+          onClick={() => console.log('Config modal')}
           ml={2}
         >
-          <Typography color={'text.secondary'} fontSize={14} variant='caption'>
+          <Typography
+            component='p'
+            color='text.secondary'
+            fontSize={14}
+            fontWeight='600'
+            variant='body2'
+          >
             Good Morning
           </Typography>
           <Typography fontWeight='bold' textOverflow='ellipsis'>
             {faker.person.fullName()}
           </Typography>
         </Stack>
+
+        <Box flex={1} />
 
         {/* Actions */}
         <Stack direction='row' ml={6} spacing={1.6}>

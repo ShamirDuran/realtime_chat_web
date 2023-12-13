@@ -1,4 +1,4 @@
-import { Box, Stack } from '@mui/material'
+import { Stack } from '@mui/material'
 import { MainPanel } from './MainPanel'
 import { ActiveChat } from './ActiveChat'
 

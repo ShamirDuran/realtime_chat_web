@@ -15,7 +15,7 @@ const withTooltip = (Component: React.ComponentType) => {
     '&.MuiIconButton-root': {
       backgroundColor: theme.palette.grey[200],
       '&:hover': {
-        backgroundColor: theme.palette.action.focus,
+        backgroundColor: theme.palette.action.hover,
       },
     },
   }))

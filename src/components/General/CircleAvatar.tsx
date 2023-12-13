@@ -2,9 +2,10 @@ import { Avatar } from '@mui/material'
 
 interface Props {
   src: string
+  size?: number
 }
 
-export const CircleAvatar = ({ src }: Props) => {
+export const CircleAvatar = ({ src, size = 46 }: Props) => {
   return (
     <Avatar
       src={src}
@@ -12,8 +13,8 @@ export const CircleAvatar = ({ src }: Props) => {
         borderWidth: 1,
         borderColor: 'grey.300',
         borderStyle: 'solid',
-        width: 46,
-        height: 46,
+        width: size,
+        height: size,
       }}
     />
   )

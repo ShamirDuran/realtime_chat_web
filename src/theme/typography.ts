@@ -13,6 +13,12 @@ const typography: TypographyOptions = {
     fontSize: pxToRem(12),
     fontWeight: 600,
   },
+  body1: {
+    fontSize: '1rem',
+  },
+  body2: {
+    fontSize: '0.9rem',
+  },
 }
 
 export default typography
