@@ -1,11 +1,11 @@
 import { Stack } from '@mui/material'
-import { MainPanel } from './MainPanel'
+import { Chats } from './Chats'
 import { ActiveChat } from './ActiveChat'
 
 export const DashboardPage = () => {
   return (
     <Stack direction='row'>
-      <MainPanel />
+      <Chats />
       <ActiveChat />
 
       {/* Active sidebar */}

@@ -7,12 +7,24 @@ export const ConstantsContext = React.createContext({
       horizontal: 0,
     },
   },
+  colors: {
+    orange: '',
+    purple: '',
+  },
 })
 
 export const ConstantsProvider = ({ children }: { children: JSX.Element }) => {
   return (
     <ConstantsContext.Provider
-      value={{ margin: { root: { vertical: 2, horizontal: 3.5 } } }}
+      value={{
+        margin: {
+          root: { vertical: 2, horizontal: 3.5 },
+        },
+        colors: {
+          orange: '#FFA500',
+          purple: '#800080',
+        },
+      }}
     >
       {children}
     </ConstantsContext.Provider>

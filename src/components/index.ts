@@ -1,3 +1,4 @@
+export * from './General/CircleContainer'
 export * from './General/TruncatedText'
 export * from './General/BadgeWrapper'
 export * from './General/CircleAvatar'

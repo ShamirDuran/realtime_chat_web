@@ -35,8 +35,8 @@ export const ActionHeader = () => {
             component='p'
             color='text.secondary'
             fontSize={14}
-            fontWeight='600'
             variant='body2'
+            letterSpacing={0.4}
           >
             Good Morning
           </Typography>

@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
-import moment from 'moment'
-import { CircleAvatar, TruncatedText } from '../../../components'
+import { CircleAvatar, CircleContainer, TruncatedText } from '../../../components'
 import { useConstants } from '../../../hooks'
+import moment from 'moment'
 
 interface ChatItemProps {
   isActive?: boolean
@@ -11,6 +11,7 @@ interface ChatItemProps {
 export const ChatItem = ({ isActive = false }: ChatItemProps) => {
   const constants = useConstants()
   const theme = useTheme()
+  const unreadMessageCount = faker.number.int({ min: 0, max: 2 })
 
   return (
     <Box
@@ -55,24 +56,19 @@ export const ChatItem = ({ isActive = false }: ChatItemProps) => {
             <TruncatedText
               component='p'
               variant='body2'
+              color='text.secondary'
               text={faker.lorem.sentence() + faker.lorem.sentence()}
               mr={2}
             />
-            <Box
-              sx={{
-                bgcolor: theme.palette.error.main,
-                color: theme.palette.error.contrastText,
-                borderRadius: '50%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexShrink: 0,
-                width: 20,
-                height: 20,
-              }}
-            >
-              <small>2</small>
-            </Box>
+            {unreadMessageCount > 0 && (
+              <CircleContainer
+                size={20}
+                bgcolor={theme.palette.error.main}
+                color={theme.palette.error.contrastText}
+              >
+                <small>{unreadMessageCount}</small>
+              </CircleContainer>
+            )}
           </Stack>
         </Stack>
       </Stack>
