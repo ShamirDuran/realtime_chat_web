@@ -9,7 +9,8 @@ export const ConstantsContext = React.createContext({
   },
   colors: {
     orange: '',
-    purple: '',
+    blue: '',
+    accentGreen: '',
   },
 })
 
@@ -22,7 +23,8 @@ export const ConstantsProvider = ({ children }: { children: JSX.Element }) => {
         },
         colors: {
           orange: '#FFA500',
-          purple: '#800080',
+          blue: '#7247DD',
+          accentGreen: '#7247DD',
         },
       }}
     >

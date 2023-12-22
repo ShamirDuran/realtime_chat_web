@@ -47,7 +47,11 @@ export const ChatItem = ({ isActive = false }: ChatItemProps) => {
               variant='subtitle1'
               text={faker.person.fullName()}
             />
-            <Typography variant='caption' color={isActive ? 'white' : 'inherit'}>
+            <Typography
+              variant='caption'
+              fontSize={12}
+              color={isActive ? 'white' : 'inherit'}
+            >
               {moment(faker.date.anytime()).format('hh:ss')}
             </Typography>
           </Stack>

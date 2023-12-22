@@ -8,6 +8,7 @@ import { useConstants } from '../../../hooks'
 interface Props {
   title: string
   Icon: React.ElementType
+  color: string
   children: JSX.Element
 }
 
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
   },
 })
 
-export const ChatSection = React.memo(({ title, Icon, children }: Props) => {
+export const ChatSection = React.memo(({ title, Icon, color, children }: Props) => {
   const theme = useTheme()
   const classes = useStyles()
   const constants = useConstants()
@@ -38,7 +39,7 @@ export const ChatSection = React.memo(({ title, Icon, children }: Props) => {
         mt={2}
         mb={1.5}
       >
-        <CircleContainer bgcolor={constants.colors.orange} size={28}>
+        <CircleContainer bgcolor={color} size={28}>
           {<Icon sx={{ color: theme.palette.common.white, fontSize: 17 }} />}
         </CircleContainer>
 

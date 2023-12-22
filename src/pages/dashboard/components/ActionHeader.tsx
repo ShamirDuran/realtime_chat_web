@@ -3,7 +3,12 @@ import AddIcon from '@mui/icons-material/Add'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import SearchIcon from '@mui/icons-material/Search'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
-import { BadgeWrapper, CircleAvatar, TooltipIconbutton } from '../../../components'
+import {
+  BadgeWrapper,
+  CircleAvatar,
+  TooltipIconbutton,
+  TruncatedText,
+} from '../../../components'
 import { useConstants } from '../../../hooks'
 
 export const ActionHeader = () => {
@@ -40,9 +45,11 @@ export const ActionHeader = () => {
           >
             Good Morning
           </Typography>
-          <Typography fontWeight='bold' textOverflow='ellipsis'>
-            {faker.person.fullName()}
-          </Typography>
+          <TruncatedText
+            fontWeight='bold'
+            textOverflow='ellipsis'
+            text={faker.person.fullName()}
+          />
         </Stack>
 
         <Box flex={1} />
