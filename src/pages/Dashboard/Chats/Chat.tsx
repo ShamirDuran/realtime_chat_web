@@ -4,11 +4,11 @@ import { CircleAvatar, CircleContainer, TruncatedText } from '../../../component
 import { useConstants } from '../../../hooks'
 import moment from 'moment'
 
-interface ChatItemProps {
+interface Props {
   isActive?: boolean
 }
 
-export const ChatItem = ({ isActive = false }: ChatItemProps) => {
+export const Chat = ({ isActive = false }: Props) => {
   const constants = useConstants()
   const theme = useTheme()
   const unreadMessageCount = faker.number.int({ min: 0, max: 2 })

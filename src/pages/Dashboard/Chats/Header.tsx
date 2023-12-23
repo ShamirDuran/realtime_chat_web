@@ -11,7 +11,7 @@ import {
 } from '../../../components'
 import { useConstants } from '../../../hooks'
 
-export const ActionHeader = () => {
+export const Header = () => {
   const theme = useTheme()
   const constants = useConstants()
 
@@ -55,7 +55,15 @@ export const ActionHeader = () => {
         <Box flex={1} />
 
         {/* Actions */}
-        <Stack direction='row' ml={6} spacing={1.6}>
+        <Stack
+          direction='row'
+          ml={{
+            xs: 3,
+            md: 5,
+            lg: 7,
+          }}
+          spacing={1.6}
+        >
           <TooltipIconbutton size='large' tooltipTitle='Start new chat'>
             <AddIcon color='inherit' fontSize='small' />
           </TooltipIconbutton>

@@ -37,7 +37,7 @@ const COMMON: PaletteOptions = {
   action: {
     active: GREY[500_80],
     hover: GREY[500_24],
-    focus: GREY[500_8],
+    focus: '#F5F6F6',
     selected: '#4783DD',
     disabled: GREY[600],
     disabledBackground: GREY[500_24],
@@ -52,7 +52,7 @@ const palette: Record<string, PaletteOptions> = {
   light: {
     ...COMMON,
     text: { primary: GREY[800], secondary: GREY[500], disabled: GREY[500_8] },
-    background: { paper: '#fff', default: '#fff' },
+    background: { paper: '#f1f1f1', default: '#fff' },
     action: { active: GREY[600], ...COMMON.action },
   },
   dark: {

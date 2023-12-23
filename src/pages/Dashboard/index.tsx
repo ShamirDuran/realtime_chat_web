@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material'
-import { Chats } from './Chats'
 import { ActiveChat } from './ActiveChat'
+import { Chats } from './Chats'
 
 export const DashboardPage = () => {
   return (

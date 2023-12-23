@@ -1,10 +1,10 @@
 import PushPinIcon from '@mui/icons-material/PushPin'
 import GroupsIcon from '@mui/icons-material/Groups'
 import { Box, Stack, useTheme } from '@mui/material'
-import { ActionHeader } from './components/ActionHeader'
-import { ChatItem } from './components/ChatItem'
-import { ChatSection } from './components/ChatSection'
-import { useConstants } from '../../hooks'
+import { Header } from './Header'
+import { Chat } from './Chat'
+import { Section } from './Section'
+import { useConstants } from '../../../hooks'
 
 export const Chats = () => {
   const theme = useTheme()
@@ -22,45 +22,41 @@ export const Chats = () => {
       }}
     >
       {/* Toolbar */}
-      <ActionHeader />
+      <Header />
 
       {/* Chats */}
       <Stack overflow='auto'>
-        <ChatSection
+        <Section
           Icon={PushPinIcon}
           title='Pinned Message'
           color={constants.colors.orange}
         >
           <Box>
             {[1, 2, 3, 4, 5].map((_, index) => (
-              <ChatItem key={index} />
+              <Chat key={index} />
             ))}
           </Box>
-        </ChatSection>
+        </Section>
 
-        <ChatSection
-          Icon={GroupsIcon}
-          title='Group Message'
-          color={constants.colors.blue}
-        >
+        <Section Icon={GroupsIcon} title='Group Message' color={constants.colors.blue}>
           <Box>
             {[1, 2, 3, 4, 5].map((_, index) => (
-              <ChatItem key={index} />
+              <Chat key={index} />
             ))}
           </Box>
-        </ChatSection>
+        </Section>
 
-        <ChatSection
+        <Section
           Icon={GroupsIcon}
           title='All Message'
           color={constants.colors.accentGreen}
         >
           <Box>
             {[1, 2, 3, 4, 5].map((_, index) => (
-              <ChatItem key={index} />
+              <Chat key={index} />
             ))}
           </Box>
-        </ChatSection>
+        </Section>
       </Stack>
     </Stack>
   )

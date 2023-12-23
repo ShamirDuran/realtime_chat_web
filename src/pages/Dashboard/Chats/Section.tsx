@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   },
 })
 
-export const ChatSection = React.memo(({ title, Icon, color, children }: Props) => {
+export const Section = React.memo(({ title, Icon, color, children }: Props) => {
   const theme = useTheme()
   const classes = useStyles()
   const constants = useConstants()
