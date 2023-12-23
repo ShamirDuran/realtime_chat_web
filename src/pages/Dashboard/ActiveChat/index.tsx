@@ -1,11 +1,10 @@
-import { faker } from '@faker-js/faker'
 import { Stack } from '@mui/material'
-import { useConstants } from '../../../hooks'
+import { useStyles } from '../../../hooks'
 import { Header } from './Header'
 import { Message } from './Message'
 
 export const ActiveChat = () => {
-  const constants = useConstants()
+  const styles = useStyles()
 
   return (
     <Stack
@@ -21,8 +20,8 @@ export const ActiveChat = () => {
         bgcolor='background.paper'
         overflow='auto'
         sx={{
-          py: constants.margin.root.vertical,
-          px: constants.margin.root.horizontal,
+          py: styles.margin.root.vertical,
+          px: styles.margin.root.horizontal,
         }}
       >
         {[1].map((index) => (

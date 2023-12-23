@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const ConstantsContext = React.createContext({
+export const StylesContext = React.createContext({
   margin: {
     root: {
       vertical: 0,
@@ -19,9 +19,9 @@ export const ConstantsContext = React.createContext({
   },
 })
 
-export const ConstantsProvider = ({ children }: { children: JSX.Element }) => {
+export const StylesProvider = ({ children }: { children: JSX.Element }) => {
   return (
-    <ConstantsContext.Provider
+    <StylesContext.Provider
       value={{
         margin: {
           root: { vertical: 2, horizontal: 3.5 },
@@ -39,6 +39,6 @@ export const ConstantsProvider = ({ children }: { children: JSX.Element }) => {
       }}
     >
       {children}
-    </ConstantsContext.Provider>
+    </StylesContext.Provider>
   )
 }

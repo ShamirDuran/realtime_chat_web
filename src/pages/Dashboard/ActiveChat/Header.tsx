@@ -4,16 +4,16 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { faker } from '@faker-js/faker'
 import { Box, Stack, Typography } from '@mui/material'
 import { CircleAvatar, TruncatedText, TooltipIconbutton } from '../../../components'
-import { useConstants } from '../../../hooks'
+import { useStyles } from '../../../hooks'
 
 export const Header = () => {
-  const constants = useConstants()
+  const styles = useStyles()
 
   return (
     <Box
       sx={{
-        py: constants.margin.root.vertical,
-        px: constants.margin.root.horizontal,
+        py: styles.margin.root.vertical,
+        px: styles.margin.root.horizontal,
       }}
     >
       <Stack direction='row'>
@@ -26,7 +26,7 @@ export const Header = () => {
           ml={2}
         >
           <TruncatedText
-            fontWeight={constants.fonts.title.weight}
+            fontWeight={styles.fonts.title.weight}
             textOverflow='ellipsis'
             text={faker.person.fullName()}
           />

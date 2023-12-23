@@ -1,14 +1,14 @@
 import { RouterProvider } from 'react-router-dom'
+import { StylesProvider } from './context'
 import router from './router'
 import ThemeProvider from './theme'
-import { ConstantsProvider } from './context'
 
 function App() {
   return (
     <ThemeProvider>
-      <ConstantsProvider>
+      <StylesProvider>
         <RouterProvider router={router} fallbackElement={<p>Initial Load...</p>} />
-      </ConstantsProvider>
+      </StylesProvider>
     </ThemeProvider>
   )
 }

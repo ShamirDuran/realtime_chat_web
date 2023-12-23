@@ -4,11 +4,11 @@ import { Box, Stack, useTheme } from '@mui/material'
 import { Header } from './Header'
 import { Chat } from './Chat'
 import { Section } from './Section'
-import { useConstants } from '../../../hooks'
+import { useStyles } from '../../../hooks'
 
 export const Chats = () => {
   const theme = useTheme()
-  const constants = useConstants()
+  const styles = useStyles()
 
   return (
     <Stack
@@ -26,11 +26,7 @@ export const Chats = () => {
 
       {/* Chats */}
       <Stack overflow='auto'>
-        <Section
-          Icon={PushPinIcon}
-          title='Pinned Message'
-          color={constants.colors.orange}
-        >
+        <Section Icon={PushPinIcon} title='Pinned Message' color={styles.colors.orange}>
           <Box>
             {[1, 2, 3, 4, 5].map((_, index) => (
               <Chat key={index} />
@@ -38,7 +34,7 @@ export const Chats = () => {
           </Box>
         </Section>
 
-        <Section Icon={GroupsIcon} title='Group Message' color={constants.colors.blue}>
+        <Section Icon={GroupsIcon} title='Group Message' color={styles.colors.blue}>
           <Box>
             {[1, 2, 3, 4, 5].map((_, index) => (
               <Chat key={index} />
@@ -46,11 +42,7 @@ export const Chats = () => {
           </Box>
         </Section>
 
-        <Section
-          Icon={GroupsIcon}
-          title='All Message'
-          color={constants.colors.accentGreen}
-        >
+        <Section Icon={GroupsIcon} title='All Message' color={styles.colors.accentGreen}>
           <Box>
             {[1, 2, 3, 4, 5].map((_, index) => (
               <Chat key={index} />

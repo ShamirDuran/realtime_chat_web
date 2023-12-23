@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
 import { CircleAvatar, CircleContainer, TruncatedText } from '../../../components'
-import { useConstants } from '../../../hooks'
+import { useStyles } from '../../../hooks'
 import moment from 'moment'
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const Chat = ({ isActive = false }: Props) => {
-  const constants = useConstants()
+  const styles = useStyles()
   const theme = useTheme()
   const unreadMessageCount = faker.number.int({ min: 0, max: 2 })
 
@@ -17,9 +17,9 @@ export const Chat = ({ isActive = false }: Props) => {
     <Box
       sx={{
         flex: 1,
-        mx: constants.margin.root.horizontal / 2,
-        px: constants.margin.root.horizontal / 2,
-        py: constants.margin.root.vertical / 2,
+        mx: styles.margin.root.horizontal / 2,
+        px: styles.margin.root.horizontal / 2,
+        py: styles.margin.root.vertical / 2,
         borderRadius: 3,
         bgcolor: isActive ? theme.palette.action.selected : 'transparent',
         color: isActive ? 'white' : 'inherit',
@@ -44,7 +44,7 @@ export const Chat = ({ isActive = false }: Props) => {
           >
             <TruncatedText
               variant='subtitle1'
-              fontWeight={constants.fonts.title.weight}
+              fontWeight={styles.fonts.title.weight}
               text={faker.person.fullName()}
             />
             <Typography variant='caption' color={isActive ? 'white' : 'text.secondary'}>

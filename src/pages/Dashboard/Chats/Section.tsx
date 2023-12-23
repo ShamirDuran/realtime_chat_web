@@ -3,7 +3,7 @@ import { Box, Stack, Typography, useTheme } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import React from 'react'
 import { CircleContainer } from '../../../components'
-import { useConstants } from '../../../hooks'
+import { useStyles } from '../../../hooks'
 
 interface Props {
   title: string
@@ -12,7 +12,7 @@ interface Props {
   children: JSX.Element
 }
 
-const useStyles = makeStyles({
+const useClasses = makeStyles({
   headerContainer: {
     cursor: 'pointer',
     userSelect: 'none',
@@ -25,8 +25,8 @@ const useStyles = makeStyles({
 
 export const Section = React.memo(({ title, Icon, color, children }: Props) => {
   const theme = useTheme()
-  const classes = useStyles()
-  const constants = useConstants()
+  const classes = useClasses()
+  const styles = useStyles()
   const [isVisible, setIsVisible] = React.useState(true)
 
   return (
@@ -35,7 +35,7 @@ export const Section = React.memo(({ title, Icon, color, children }: Props) => {
         direction='row'
         className={classes.headerContainer}
         onClick={() => setIsVisible((prev) => !prev)}
-        mx={constants.margin.root.horizontal}
+        mx={styles.margin.root.horizontal}
         mt={2}
         mb={1.5}
       >
