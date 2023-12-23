@@ -7,6 +7,11 @@ export const ConstantsContext = React.createContext({
       horizontal: 0,
     },
   },
+  fonts: {
+    title: {
+      weight: 0,
+    },
+  },
   colors: {
     orange: '',
     blue: '',
@@ -20,6 +25,11 @@ export const ConstantsProvider = ({ children }: { children: JSX.Element }) => {
       value={{
         margin: {
           root: { vertical: 2, horizontal: 3.5 },
+        },
+        fonts: {
+          title: {
+            weight: 500,
+          },
         },
         colors: {
           orange: '#FFA500',

@@ -1,10 +1,12 @@
-import { Box, Typography, styled } from '@mui/material'
+import { faker } from '@faker-js/faker'
+import { Box, Stack, Typography, styled } from '@mui/material'
+import moment from 'moment'
 
 interface Props {
   direction: 'left' | 'right'
 }
 
-const MessageContainer = styled(Box)<Props>(({ theme, ...props }) => {
+const Container = styled(Box)<Props>(({ theme, ...props }) => {
   const borderRadius = theme.spacing(6)
 
   return {
@@ -23,10 +25,22 @@ const MessageContainer = styled(Box)<Props>(({ theme, ...props }) => {
   }
 })
 
+const Time = styled(Typography)<Props>(({ theme, ...props }) => ({
+  alignSelf: 'flex-end',
+  bottom: -12,
+  color: props.direction === 'left' ? theme.palette.text.secondary : 'white',
+  marginLeft: theme.spacing(2),
+  position: 'relative',
+  right: -3,
+}))
+
 export const Message = () => {
   return (
-    <MessageContainer direction={'left'}>
-      <Typography variant='body2'>Lorem ipsum dolor sit amet.</Typography>
-    </MessageContainer>
+    <Container direction={'right'}>
+      <Stack direction='row'>
+        <Typography variant='body2'>Lorem ipsum dolor sit amet.</Typography>
+        <Time variant='caption'>{moment(faker.date.anytime()).format('hh:ss')}</Time>
+      </Stack>
+    </Container>
   )
 }

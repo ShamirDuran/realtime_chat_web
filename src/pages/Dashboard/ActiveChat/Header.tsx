@@ -26,7 +26,7 @@ export const Header = () => {
           ml={2}
         >
           <TruncatedText
-            fontWeight='bold'
+            fontWeight={constants.fonts.title.weight}
             textOverflow='ellipsis'
             text={faker.person.fullName()}
           />

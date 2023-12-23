@@ -10,13 +10,13 @@ const typography: TypographyOptions = {
   fontWeightBold: 700,
   caption: {
     lineHeight: 1.5,
-    fontSize: pxToRem(12),
+    fontSize: '11px',
   },
   body1: {
     fontSize: '1rem',
   },
   body2: {
-    fontSize: '0.9rem',
+    fontSize: '14px',
     fontWeight: 400,
   },
 }

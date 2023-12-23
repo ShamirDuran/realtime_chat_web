@@ -46,7 +46,7 @@ export const Header = () => {
             Good Morning
           </Typography>
           <TruncatedText
-            fontWeight='bold'
+            fontWeight={constants.fonts.title.weight}
             textOverflow='ellipsis'
             text={faker.person.fullName()}
           />

@@ -1,7 +1,7 @@
-import { Stack, useTheme } from '@mui/material'
+import { faker } from '@faker-js/faker'
+import { Stack } from '@mui/material'
 import { useConstants } from '../../../hooks'
 import { Header } from './Header'
-import { faker } from '@faker-js/faker'
 import { Message } from './Message'
 
 export const ActiveChat = () => {

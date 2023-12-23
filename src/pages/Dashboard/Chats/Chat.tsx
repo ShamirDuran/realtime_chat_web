@@ -43,15 +43,11 @@ export const Chat = ({ isActive = false }: Props) => {
             flex={1}
           >
             <TruncatedText
-              fontWeight='bold'
               variant='subtitle1'
+              fontWeight={constants.fonts.title.weight}
               text={faker.person.fullName()}
             />
-            <Typography
-              variant='caption'
-              fontSize={12}
-              color={isActive ? 'white' : 'inherit'}
-            >
+            <Typography variant='caption' color={isActive ? 'white' : 'text.secondary'}>
               {moment(faker.date.anytime()).format('hh:ss')}
             </Typography>
           </Stack>
