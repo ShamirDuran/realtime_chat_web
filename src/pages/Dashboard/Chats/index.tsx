@@ -14,7 +14,8 @@ export const Chats = () => {
     <Stack
       sx={{
         flexGrow: 1,
-        maxWidth: 530,
+        width: '100%',
+        maxWidth: 520,
         height: '100vh',
         borderRight: 1,
         borderRightColor: theme.palette.divider,
@@ -34,7 +35,7 @@ export const Chats = () => {
           </Box>
         </Section>
 
-        <Section Icon={GroupsIcon} title='Group Message' color={styles.colors.blue}>
+        <Section Icon={GroupsIcon} title='Group Message' color={styles.colors.purple}>
           <Box>
             {[1, 2, 3, 4, 5].map((_, index) => (
               <Chat key={index} />

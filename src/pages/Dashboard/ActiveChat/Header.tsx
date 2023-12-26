@@ -14,6 +14,9 @@ export const Header = () => {
       sx={{
         py: styles.margin.root.vertical,
         px: styles.margin.root.horizontal,
+        borderBottomWidth: 1,
+        borderBottomColor: (theme) => theme.palette.divider,
+        borderBottomStyle: 'solid',
       }}
     >
       <Stack direction='row'>

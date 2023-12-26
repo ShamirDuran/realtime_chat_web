@@ -1,13 +1,23 @@
-import { faker } from '@faker-js/faker'
 import { Box, Stack, Typography, styled } from '@mui/material'
 import moment from 'moment'
 
 interface Props {
+  id: string | number
+  message: string
+  time: Date
+  from: string
+}
+
+interface ContainerProps {
   direction: 'left' | 'right'
 }
 
-const Container = styled(Box)<Props>(({ theme, ...props }) => {
-  const borderRadius = theme.spacing(6)
+interface TimeProps {
+  color: string
+}
+
+const Container = styled(Box)<ContainerProps>(({ theme, ...props }) => {
+  const borderRadius = theme.spacing(3)
 
   return {
     alignSelf: props.direction === 'left' ? 'flex-start' : 'flex-end',
@@ -20,26 +30,39 @@ const Container = styled(Box)<Props>(({ theme, ...props }) => {
     borderBottomLeftRadius: borderRadius,
     borderBottomRightRadius: borderRadius,
     color: props.direction == 'left' ? 'inherit' : 'white',
-    padding: '0.8rem 1.5rem',
+    padding: '0.6rem 1.2rem',
     width: 'fit-content',
   }
 })
 
-const Time = styled(Typography)<Props>(({ theme, ...props }) => ({
+const Time = styled(Typography)<TimeProps>(({ theme, ...props }) => ({
   alignSelf: 'flex-end',
-  bottom: -12,
-  color: props.direction === 'left' ? theme.palette.text.secondary : 'white',
+  bottom: -10,
   marginLeft: theme.spacing(2),
+  color: props.color,
   position: 'relative',
-  right: -3,
 }))
 
-export const Message = () => {
+export const Message = ({ id, message, time, from }: Props) => {
   return (
-    <Container direction={'right'}>
+    <Container
+      direction={from === 'me' ? 'right' : 'left'}
+      sx={{
+        maxWidth: {
+          xs: '90%',
+          md: '85%',
+          lg: '70%',
+          xl: '65%',
+        },
+      }}
+    >
       <Stack direction='row'>
-        <Typography variant='body2'>Lorem ipsum dolor sit amet.</Typography>
-        <Time variant='caption'>{moment(faker.date.anytime()).format('hh:ss')}</Time>
+        <Typography variant='body2' lineHeight='20px'>
+          {message}
+        </Typography>
+        <Time color={from === 'me' ? 'white' : 'text.secondary'} variant='caption'>
+          {moment(time).format('hh:ss')}
+        </Time>
       </Stack>
     </Container>
   )

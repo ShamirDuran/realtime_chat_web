@@ -15,6 +15,7 @@ export const StylesContext = React.createContext({
   colors: {
     orange: '',
     blue: '',
+    purple: '',
     accentGreen: '',
   },
 })
@@ -24,7 +25,7 @@ export const StylesProvider = ({ children }: { children: JSX.Element }) => {
     <StylesContext.Provider
       value={{
         margin: {
-          root: { vertical: 2, horizontal: 3.5 },
+          root: { vertical: 1.5, horizontal: 3.5 },
         },
         fonts: {
           title: {
@@ -33,8 +34,9 @@ export const StylesProvider = ({ children }: { children: JSX.Element }) => {
         },
         colors: {
           orange: '#FFA500',
-          blue: '#7247DD',
-          accentGreen: '#7247DD',
+          blue: '#4485E0',
+          purple: '#7247DD',
+          accentGreen: '#36BBC4',
         },
       }}
     >
