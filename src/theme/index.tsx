@@ -7,6 +7,7 @@ import {
 } from '@mui/material/styles'
 import palette from './palette'
 import typography from './typography'
+import components from './components'
 
 interface Props {
   children: React.ReactNode
@@ -17,6 +18,7 @@ const ThemeProvider = ({ children }: Props) => {
     () => ({
       palette: { ...palette.light, mode: 'light' },
       typography: typography,
+      components: components,
     }),
     [],
   )

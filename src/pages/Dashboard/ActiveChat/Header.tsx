@@ -2,12 +2,29 @@ import SearchIcon from '@mui/icons-material/Search'
 import AddIcCallIcon from '@mui/icons-material/AddIcCall'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { faker } from '@faker-js/faker'
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Menu, MenuItem, Stack, Typography } from '@mui/material'
 import { CircleAvatar, TruncatedText, TooltipIconbutton } from '../../../components'
-import { useStyles } from '../../../hooks'
+import { useMenu, useStyles } from '../../../hooks'
 
 export const Header = () => {
   const styles = useStyles()
+  const [menuRef, isMenuOpen, handleOpenMenu, handleCloseMenu] = useMenu(false)
+
+  const handleContactInfo = () => {
+    console.log('Contact info')
+  }
+
+  const handleClearChat = () => {
+    console.log('Clear chat')
+  }
+
+  const handleDeleteChat = () => {
+    console.log('Delete chat')
+  }
+
+  const handleCloseChat = () => {
+    console.log('Close chat')
+  }
 
   return (
     <Box
@@ -55,11 +72,52 @@ export const Header = () => {
             <AddIcCallIcon color='inherit' fontSize='small' />
           </TooltipIconbutton>
 
-          <TooltipIconbutton size='large' tooltipTitle='Menu'>
+          <TooltipIconbutton size='large' tooltipTitle='Menu' onClick={handleOpenMenu}>
             <MoreVertIcon color='inherit' fontSize='small' />
           </TooltipIconbutton>
         </Stack>
       </Stack>
+
+      {/* // TODO: Crear context para controlar el estado del menu y asi poder separar el componente en dos */}
+      <Menu
+        id='basic-menu'
+        anchorEl={menuRef}
+        open={isMenuOpen}
+        onClose={() => handleCloseMenu()}
+      >
+        <MenuItem
+          onClick={() => {
+            handleCloseMenu()
+            handleContactInfo()
+          }}
+        >
+          Contact info
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleCloseMenu()
+            handleCloseChat()
+          }}
+        >
+          Close chat
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleCloseMenu()
+            handleClearChat()
+          }}
+        >
+          Clear chat
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleCloseMenu()
+            handleDeleteChat()
+          }}
+        >
+          Delete chat
+        </MenuItem>
+      </Menu>
     </Box>
   )
 }
