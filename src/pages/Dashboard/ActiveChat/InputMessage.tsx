@@ -19,7 +19,7 @@ const Container = styled(Stack)(({ theme }) => ({
   borderRadius: 50,
   backgroundColor: theme.palette.background.default,
   alignItems: 'center',
-  padding: '4px 6px 4px 16px',
+  padding: '4px 5px 4px 16px',
   flex: 1,
 }))
 

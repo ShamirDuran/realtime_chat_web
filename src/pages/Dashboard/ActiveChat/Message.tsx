@@ -37,7 +37,8 @@ const Container = styled(Box)<ContainerProps>(({ theme, ...props }) => {
 
 const Time = styled(Typography)<TimeProps>(({ theme, ...props }) => ({
   alignSelf: 'flex-end',
-  bottom: -10,
+  bottom: -5,
+  right: -6,
   marginLeft: theme.spacing(2),
   color: props.color,
   position: 'relative',
