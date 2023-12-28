@@ -1,9 +1,14 @@
-import SearchIcon from '@mui/icons-material/Search'
+import { faker } from '@faker-js/faker'
 import AddIcCallIcon from '@mui/icons-material/AddIcCall'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import { faker } from '@faker-js/faker'
+import SearchIcon from '@mui/icons-material/Search'
 import { Box, Menu, MenuItem, Stack, Typography } from '@mui/material'
-import { CircleAvatar, TruncatedText, TooltipIconbutton } from '../../../components'
+import {
+  CircleAvatar,
+  StyledToolbar,
+  TooltipIconbutton,
+  TruncatedText,
+} from '../../../components'
 import { useMenu, useStyles } from '../../../hooks'
 
 export const Header = () => {
@@ -27,16 +32,8 @@ export const Header = () => {
   }
 
   return (
-    <Box
-      sx={{
-        py: styles.margin.root.vertical,
-        px: styles.margin.root.horizontal,
-        borderBottomWidth: 1,
-        borderBottomColor: (theme) => theme.palette.divider,
-        borderBottomStyle: 'solid',
-      }}
-    >
-      <Stack direction='row'>
+    <StyledToolbar>
+      <Stack direction='row' flex={1}>
         <CircleAvatar src={faker.image.avatarLegacy()} />
 
         {/* User info */}
@@ -118,6 +115,6 @@ export const Header = () => {
           Delete chat
         </MenuItem>
       </Menu>
-    </Box>
+    </StyledToolbar>
   )
 }

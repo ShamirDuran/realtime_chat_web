@@ -1,4 +1,5 @@
 import React from 'react'
+import { useResponsive } from '../hooks'
 
 export const StylesContext = React.createContext({
   margin: {
@@ -18,9 +19,16 @@ export const StylesContext = React.createContext({
     purple: '',
     accentGreen: '',
   },
+  dimensions: {
+    profileDrawer: {
+      width: 0,
+    },
+  },
 })
 
 export const StylesProvider = ({ children }: { children: JSX.Element }) => {
+  const isTabled = useResponsive({ query: 'up', key: 'lg' })
+
   return (
     <StylesContext.Provider
       value={{
@@ -37,6 +45,11 @@ export const StylesProvider = ({ children }: { children: JSX.Element }) => {
           blue: '#4485E0',
           purple: '#7247DD',
           accentGreen: '#36BBC4',
+        },
+        dimensions: {
+          profileDrawer: {
+            width: isTabled ? 520 : 430,
+          },
         },
       }}
     >

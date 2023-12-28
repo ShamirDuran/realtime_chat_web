@@ -4,12 +4,9 @@ import { Chats } from './Chats'
 
 export const DashboardPage = () => {
   return (
-    <Stack direction='row'>
+    <Stack direction='row' position='relative'>
       <Chats />
       <ActiveChat />
-
-      {/* Active sidebar */}
-      <></>
     </Stack>
   )
 }

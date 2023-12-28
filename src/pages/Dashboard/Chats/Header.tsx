@@ -6,35 +6,39 @@ import { Box, Stack, Typography, useTheme } from '@mui/material'
 import {
   BadgeWrapper,
   CircleAvatar,
+  StyledToolbar,
   TooltipIconbutton,
   TruncatedText,
 } from '../../../components'
-import { useStyles } from '../../../hooks'
+import { useAppDispatch, useStyles } from '../../../hooks'
+import { toggleProfileDrawer } from '../../../redux/slices'
 
 export const Header = () => {
   const theme = useTheme()
   const styles = useStyles()
+  const dispatch = useAppDispatch()
+
+  const handleOpenProfileDrawer = () => {
+    dispatch(toggleProfileDrawer())
+  }
 
   return (
-    <Box
-      sx={{
-        py: styles.margin.root.vertical,
-        px: styles.margin.root.horizontal,
-        borderBottomWidth: 1,
-        borderBottomColor: theme.palette.divider,
-        borderBottomStyle: 'solid',
-      }}
-    >
-      <Stack direction='row' alignItems='center'>
-        <BadgeWrapper vertical='bottom' horizontal='right' ripple={true}>
+    <StyledToolbar>
+      <Stack direction='row' alignItems='center' flex={1}>
+        <BadgeWrapper
+          vertical='bottom'
+          horizontal='right'
+          ripple={true}
+          onClick={handleOpenProfileDrawer}
+        >
           <CircleAvatar src={faker.image.avatarLegacy()} />
         </BadgeWrapper>
 
         {/* User info */}
         <Stack
-          sx={{ cursor: 'pointer', userSelect: 'none' }}
-          onClick={() => console.log('Config modal')}
           ml={2}
+          sx={{ cursor: 'pointer', userSelect: 'none' }}
+          onClick={handleOpenProfileDrawer}
         >
           <Typography
             component='p'
@@ -79,6 +83,6 @@ export const Header = () => {
           </TooltipIconbutton>
         </Stack>
       </Stack>
-    </Box>
+    </StyledToolbar>
   )
 }

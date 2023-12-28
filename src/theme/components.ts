@@ -1,7 +1,6 @@
 import { Components, Theme } from '@mui/material'
 
 const components: Components<Omit<Theme, 'components'>> = {
-  // add 5px to top
   MuiMenu: {
     styleOverrides: {
       paper: ({ theme }) => ({

@@ -1,10 +1,11 @@
-import PushPinIcon from '@mui/icons-material/PushPin'
 import GroupsIcon from '@mui/icons-material/Groups'
+import PushPinIcon from '@mui/icons-material/PushPin'
 import { Box, Stack, useTheme } from '@mui/material'
-import { Header } from './Header'
-import { Chat } from './Chat'
-import { Section } from './Section'
 import { useStyles } from '../../../hooks'
+import { Chat } from './Chat'
+import { Header } from './Header'
+import { Section } from './Section'
+import { ProfileDrawer } from '../components/ProfileDrawer'
 
 export const Chats = () => {
   const theme = useTheme()
@@ -13,13 +14,13 @@ export const Chats = () => {
   return (
     <Stack
       sx={{
-        flexGrow: 1,
-        width: '100%',
-        maxWidth: 520,
-        height: '100vh',
         borderRight: 1,
         borderRightColor: theme.palette.divider,
         borderRightStyle: 'solid',
+        position: 'relative',
+        minWidth: styles.dimensions.profileDrawer.width,
+        maxWidth: styles.dimensions.profileDrawer.width,
+        height: '100vh',
       }}
     >
       {/* Toolbar */}
@@ -51,6 +52,8 @@ export const Chats = () => {
           </Box>
         </Section>
       </Stack>
+
+      <ProfileDrawer />
     </Stack>
   )
 }
