@@ -51,7 +51,7 @@ const COMMON: PaletteOptions = {
 const palette: Record<string, PaletteOptions> = {
   light: {
     ...COMMON,
-    text: { primary: GREY[800], secondary: GREY[500], disabled: GREY[500_8] },
+    text: { primary: GREY[800], secondary: GREY[500], disabled: GREY[700] },
     background: { paper: '#f1f1f1', default: '#fff' },
     action: { active: GREY[600], ...COMMON.action },
   },

@@ -40,6 +40,7 @@ export const Header = () => {
         <Stack
           sx={{ cursor: 'pointer', userSelect: 'none' }}
           onClick={() => console.log('Config modal')}
+          justifyContent='center'
           ml={2}
         >
           <TruncatedText
@@ -50,7 +51,7 @@ export const Header = () => {
           <Typography
             component='p'
             color='text.secondary'
-            fontSize={14}
+            fontSize={styles.fonts.subtitle.fontSize}
             variant='body2'
             letterSpacing={0.4}
           >

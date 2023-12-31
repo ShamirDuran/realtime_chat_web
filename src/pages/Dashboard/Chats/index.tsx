@@ -5,7 +5,6 @@ import { useStyles } from '../../../hooks'
 import { Chat } from './Chat'
 import { Header } from './Header'
 import { Section } from './Section'
-import { ProfileDrawer } from '../components/ProfileDrawer'
 
 export const Chats = () => {
   const theme = useTheme()
@@ -52,8 +51,6 @@ export const Chats = () => {
           </Box>
         </Section>
       </Stack>
-
-      <ProfileDrawer />
     </Stack>
   )
 }

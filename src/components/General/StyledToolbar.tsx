@@ -12,5 +12,6 @@ export const StyledToolbar = styled(Toolbar)(({ theme }) => {
     paddingRight: theme.spacing(styles.margin.root.horizontal),
     paddingTop: theme.spacing(styles.margin.root.vertical),
     paddingBottom: theme.spacing(styles.margin.root.vertical),
+    boxSizing: 'border-box',
   }
 })

@@ -25,36 +25,35 @@ export const Header = () => {
   return (
     <StyledToolbar>
       <Stack direction='row' alignItems='center' flex={1}>
-        <BadgeWrapper
-          vertical='bottom'
-          horizontal='right'
-          ripple={true}
+        <Box
           onClick={handleOpenProfileDrawer}
+          sx={{ cursor: 'pointer', display: 'flex' }}
         >
-          <CircleAvatar src={faker.image.avatarLegacy()} />
-        </BadgeWrapper>
+          <BadgeWrapper vertical='bottom' horizontal='right' ripple={true}>
+            <CircleAvatar src={faker.image.avatarLegacy()} />
+          </BadgeWrapper>
 
-        {/* User info */}
-        <Stack
-          ml={2}
-          sx={{ cursor: 'pointer', userSelect: 'none' }}
-          onClick={handleOpenProfileDrawer}
-        >
-          <Typography
-            component='p'
-            color='text.secondary'
-            fontSize={14}
-            variant='body2'
-            letterSpacing={0.4}
+          {/* User info */}
+          <Stack
+            justifyContent={'center'}
+            sx={{ cursor: 'pointer', userSelect: 'none', ml: 2, pt: 0.5 }}
           >
-            Good Morning
-          </Typography>
-          <TruncatedText
-            fontWeight={styles.fonts.title.weight}
-            textOverflow='ellipsis'
-            text={faker.person.fullName()}
-          />
-        </Stack>
+            <Typography
+              component='p'
+              color='text.secondary'
+              fontSize={styles.fonts.subtitle.fontSize}
+              variant='body2'
+              letterSpacing={0.4}
+            >
+              Good Morning
+            </Typography>
+            <TruncatedText
+              fontWeight={styles.fonts.title.weight}
+              textOverflow='ellipsis'
+              text={faker.person.fullName()}
+            />
+          </Stack>
+        </Box>
 
         <Box flex={1} />
 

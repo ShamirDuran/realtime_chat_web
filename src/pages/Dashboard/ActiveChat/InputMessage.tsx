@@ -35,7 +35,6 @@ const Input = styled(InputBase)(({ theme }) => ({
   },
 }))
 
-// TODO: Cambiar diseño de floating a fixed para evitar que se sobrepongan
 export const InputMessage = () => {
   const styles = useStyles()
 
@@ -57,7 +56,7 @@ export const InputMessage = () => {
           disableRipple
           size='large'
           sx={{
-            bgcolor: styles.colors.blue,
+            bgcolor: (theme) => theme.palette.action.selected,
             color: (theme) => theme.palette.primary.contrastText,
           }}
         >

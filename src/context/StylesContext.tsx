@@ -12,10 +12,12 @@ export const StylesContext = React.createContext({
     title: {
       weight: 0,
     },
+    subtitle: {
+      fontSize: 0,
+    },
   },
   colors: {
     orange: '',
-    blue: '',
     purple: '',
     accentGreen: '',
   },
@@ -39,10 +41,12 @@ export const StylesProvider = ({ children }: { children: JSX.Element }) => {
           title: {
             weight: 500,
           },
+          subtitle: {
+            fontSize: 13,
+          },
         },
         colors: {
           orange: '#FFA500',
-          blue: '#4485E0',
           purple: '#7247DD',
           accentGreen: '#36BBC4',
         },
