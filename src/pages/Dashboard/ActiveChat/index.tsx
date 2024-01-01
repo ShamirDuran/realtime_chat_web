@@ -27,7 +27,7 @@ export const ActiveChat = () => {
     <Stack sx={{ flexGrow: 1, maxHeight: '100vh' }} position='relative'>
       <Header />
 
-      <Box ref={scrollRef} bgcolor='background.paper' pb={10} overflow='auto'>
+      <Box ref={scrollRef} bgcolor='background.paper' pb={1} overflow='auto'>
         <Stack
           flexGrow={1}
           spacing={1.5}
