@@ -22,6 +22,15 @@ const components: Components<Omit<Theme, 'components'>> = {
       }),
     },
   },
+  MuiTextField: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+          borderColor: theme.palette.action.selected,
+        },
+      }),
+    },
+  },
 }
 
 export default components

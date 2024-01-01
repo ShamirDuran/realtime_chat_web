@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 
 const initialState = {
-  openProfileDrawer: true,
+  openProfileDrawer: false,
   isLoading: false,
 }
 

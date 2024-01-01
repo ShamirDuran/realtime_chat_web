@@ -10,5 +10,5 @@ export const useForm = (initialValues: any = {}) => {
     })
   }
 
-  return [values, handleChange]
+  return [values, handleChange, setValues]
 }

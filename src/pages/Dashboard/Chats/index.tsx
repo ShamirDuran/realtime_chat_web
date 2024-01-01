@@ -5,6 +5,7 @@ import { useStyles } from '../../../hooks'
 import { Chat } from './Chat'
 import { Header } from './Header'
 import { Section } from './Section'
+import { SearchBar } from './SearchBar'
 
 export const Chats = () => {
   const theme = useTheme()
@@ -25,9 +26,16 @@ export const Chats = () => {
       {/* Toolbar */}
       <Header />
 
+      <SearchBar />
+
       {/* Chats */}
       <Stack overflow='auto'>
-        <Section Icon={PushPinIcon} title='Pinned Message' color={styles.colors.orange}>
+        <Section
+          Icon={PushPinIcon}
+          title='Pinned Message'
+          color={styles.colors.orange}
+          mt={0}
+        >
           <Box>
             {[1, 2, 3, 4, 5].map((_, index) => (
               <Chat key={index} />

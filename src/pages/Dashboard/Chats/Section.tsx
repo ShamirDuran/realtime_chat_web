@@ -10,6 +10,7 @@ interface Props {
   Icon: React.ElementType
   color: string
   children: JSX.Element
+  mt?: number
 }
 
 const useClasses = makeStyles({
@@ -23,20 +24,20 @@ const useClasses = makeStyles({
   },
 })
 
-export const Section = React.memo(({ title, Icon, color, children }: Props) => {
+export const Section = React.memo(({ title, Icon, color, children, mt = 2 }: Props) => {
   const theme = useTheme()
   const classes = useClasses()
   const styles = useStyles()
   const [isVisible, setIsVisible] = React.useState(true)
 
   return (
-    <Box>
+    <Stack alignItems='flex-start'>
       <Stack
         direction='row'
         className={classes.headerContainer}
         onClick={() => setIsVisible((prev) => !prev)}
         mx={styles.margin.root.horizontal}
-        mt={2}
+        mt={mt}
         mb={1.5}
       >
         <CircleContainer bgcolor={color} size={28}>
@@ -54,6 +55,6 @@ export const Section = React.memo(({ title, Icon, color, children }: Props) => {
       </Stack>
 
       {isVisible && children}
-    </Box>
+    </Stack>
   )
 })

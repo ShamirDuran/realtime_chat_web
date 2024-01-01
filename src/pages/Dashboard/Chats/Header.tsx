@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 import AddIcon from '@mui/icons-material/Add'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-import SearchIcon from '@mui/icons-material/Search'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
 import {
   BadgeWrapper,
@@ -63,9 +63,9 @@ export const Header = () => {
           ml={{
             xs: 3,
             md: 5,
-            lg: 7,
+            lg: 6,
           }}
-          spacing={1.6}
+          spacing={1.2}
         >
           <TooltipIconbutton size='large' tooltipTitle='Start new chat'>
             <AddIcon color='inherit' fontSize='small' />
@@ -77,8 +77,8 @@ export const Header = () => {
             </TooltipIconbutton>
           </BadgeWrapper>
 
-          <TooltipIconbutton size='large' tooltipTitle='Search messages'>
-            <SearchIcon color='inherit' fontSize='small' />
+          <TooltipIconbutton size='large' tooltipTitle='Menu'>
+            <MoreVertIcon color='inherit' fontSize='small' />
           </TooltipIconbutton>
         </Stack>
       </Stack>

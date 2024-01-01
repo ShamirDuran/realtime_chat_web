@@ -48,20 +48,19 @@ export const Header = () => {
             textOverflow='ellipsis'
             text={faker.person.fullName()}
           />
-          <Typography
+          <TruncatedText
             component='p'
             color='text.secondary'
             fontSize={styles.fonts.subtitle.fontSize}
             variant='body2'
             letterSpacing={0.4}
-          >
-            Last seen Yesterday 02:30 PM
-          </Typography>
+            text='Last seen Yesterday 02:30 PM'
+          />
         </Stack>
 
         <Box flex={1} />
 
-        <Stack direction='row' spacing={1.6}>
+        <Stack direction='row' spacing={1.2}>
           <TooltipIconbutton size='large' tooltipTitle='Search'>
             <SearchIcon color='inherit' fontSize='small' />
           </TooltipIconbutton>
