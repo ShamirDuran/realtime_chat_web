@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
-export const useMenu = (initialState: boolean) => {
+export const useMenu = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const isOpen = Boolean(anchorEl)
 

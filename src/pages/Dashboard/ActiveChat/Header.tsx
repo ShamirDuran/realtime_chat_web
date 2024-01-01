@@ -13,7 +13,7 @@ import { useMenu, useStyles } from '../../../hooks'
 
 export const Header = () => {
   const styles = useStyles()
-  const [menuRef, isMenuOpen, handleOpenMenu, handleCloseMenu] = useMenu(false)
+  const [menuRef, isMenuOpen, handleOpenMenu, handleCloseMenu] = useMenu()
 
   const handleContactInfo = () => {
     console.log('Contact info')

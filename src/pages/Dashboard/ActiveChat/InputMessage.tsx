@@ -35,6 +35,7 @@ const Input = styled(InputBase)(({ theme }) => ({
   },
 }))
 
+// TODO: Change float to fixed design for improve multiline input
 export const InputMessage = () => {
   const styles = useStyles()
 
