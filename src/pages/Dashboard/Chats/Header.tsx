@@ -10,13 +10,15 @@ import {
   TooltipIconbutton,
   TruncatedText,
 } from '../../../components'
-import { useAppDispatch, useStyles } from '../../../hooks'
+import { useAppDispatch, useMenu, useStyles } from '../../../hooks'
 import { toggleProfileDrawer } from '../../../redux/slices'
+import { MainMenu } from './Menus/MainMenu'
 
 export const Header = () => {
   const theme = useTheme()
   const styles = useStyles()
   const dispatch = useAppDispatch()
+  const [menuRef, isMenuOpen, handleOpenMenu, handleCloseMenu] = useMenu()
 
   const handleOpenProfileDrawer = () => {
     dispatch(toggleProfileDrawer())
@@ -77,11 +79,13 @@ export const Header = () => {
             </TooltipIconbutton>
           </BadgeWrapper>
 
-          <TooltipIconbutton size='large' tooltipTitle='Menu'>
+          <TooltipIconbutton size='large' tooltipTitle='Menu' onClick={handleOpenMenu}>
             <MoreVertIcon color='inherit' fontSize='small' />
           </TooltipIconbutton>
         </Stack>
       </Stack>
+
+      <MainMenu menuRef={menuRef} isOpen={isMenuOpen} handleClose={handleCloseMenu} />
     </StyledToolbar>
   )
 }

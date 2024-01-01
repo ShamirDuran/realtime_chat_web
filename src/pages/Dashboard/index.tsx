@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material'
 import { ActiveChat } from './ActiveChat'
 import { Chats } from './Chats'
-import { ProfileDrawer } from './components/ProfileDrawer'
+import { ProfileDrawer } from './Drawers/ProfileDrawer'
 
 export const DashboardPage = () => {
   return (

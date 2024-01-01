@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import AddIcCallIcon from '@mui/icons-material/AddIcCall'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import SearchIcon from '@mui/icons-material/Search'
-import { Box, Menu, MenuItem, Stack, Typography } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import {
   CircleAvatar,
   StyledToolbar,
@@ -10,26 +10,11 @@ import {
   TruncatedText,
 } from '../../../components'
 import { useMenu, useStyles } from '../../../hooks'
+import { ActiveMenu } from './Menus/ActiveMenu'
 
 export const Header = () => {
   const styles = useStyles()
   const [menuRef, isMenuOpen, handleOpenMenu, handleCloseMenu] = useMenu()
-
-  const handleContactInfo = () => {
-    console.log('Contact info')
-  }
-
-  const handleClearChat = () => {
-    console.log('Clear chat')
-  }
-
-  const handleDeleteChat = () => {
-    console.log('Delete chat')
-  }
-
-  const handleCloseChat = () => {
-    console.log('Close chat')
-  }
 
   return (
     <StyledToolbar>
@@ -75,46 +60,7 @@ export const Header = () => {
         </Stack>
       </Stack>
 
-      {/* // TODO: Crear context para controlar el estado del menu y asi poder separar el componente en dos */}
-      <Menu
-        id='basic-menu'
-        anchorEl={menuRef}
-        open={isMenuOpen}
-        onClose={() => handleCloseMenu()}
-      >
-        <MenuItem
-          onClick={() => {
-            handleCloseMenu()
-            handleContactInfo()
-          }}
-        >
-          Contact info
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            handleCloseMenu()
-            handleCloseChat()
-          }}
-        >
-          Close chat
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            handleCloseMenu()
-            handleClearChat()
-          }}
-        >
-          Clear chat
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            handleCloseMenu()
-            handleDeleteChat()
-          }}
-        >
-          Delete chat
-        </MenuItem>
-      </Menu>
+      <ActiveMenu menuRef={menuRef} isOpen={isMenuOpen} handleClose={handleCloseMenu} />
     </StyledToolbar>
   )
 }
