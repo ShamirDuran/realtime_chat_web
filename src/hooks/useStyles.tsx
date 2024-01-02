@@ -1,4 +1,4 @@
 import React from 'react'
-import { StylesContext } from '../context'
+import { StylesContext } from '../providers'
 
 export const useStyles = () => React.useContext(StylesContext)

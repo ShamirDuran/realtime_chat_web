@@ -11,7 +11,7 @@ import {
   TruncatedText,
 } from '../../../components'
 import { useAppDispatch, useMenu, useStyles } from '../../../hooks'
-import { toggleProfileDrawer } from '../../../redux/slices'
+import { toggleProfileDrawer } from '../../../redux/slices/ui.slice'
 import { MainMenu } from './Menus/MainMenu'
 
 export const Header = () => {

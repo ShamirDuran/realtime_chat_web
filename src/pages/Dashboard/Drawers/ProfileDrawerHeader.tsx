@@ -2,7 +2,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { IconButton, Stack, Typography, useTheme } from '@mui/material'
 import { StyledToolbar } from '../../../components'
 import { useAppDispatch } from '../../../hooks'
-import { toggleProfileDrawer } from '../../../redux/slices'
+import { toggleProfileDrawer } from '../../../redux/slices/ui.slice'
 
 export const ProfileDrawerHeader = () => {
   const theme = useTheme()

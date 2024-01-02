@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'
-import { StylesProvider } from './context'
+import { StylesProvider } from './providers'
 import { store } from './redux/store'
 import router from './router'
 import ThemeProvider from './theme'

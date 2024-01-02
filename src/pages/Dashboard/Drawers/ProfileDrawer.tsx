@@ -1,8 +1,8 @@
 import { Box, Collapse, useTheme } from '@mui/material'
 import { useAppSelector, useStyles } from '../../../hooks'
-import { selectProfileDrawer } from '../../../redux/slices'
-import { ProfileDrawerHeader } from './ProfileDrawerHeader'
+import { selectProfileDrawer } from '../../../redux/slices/ui.slice'
 import { ProfileDrawerBody } from './ProfileDrawerBody'
+import { ProfileDrawerHeader } from './ProfileDrawerHeader'
 
 export const ProfileDrawer = () => {
   const theme = useTheme()
