@@ -9,10 +9,11 @@ import { Link as RouterLink } from 'react-router-dom'
 import * as Yup from 'yup'
 import { FormProvider, RHFTextField } from '../../../components'
 
-export const Form = () => {
+export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
+  // TODO: Add length validation
   const LoginSchema = Yup.object({
     email: Yup.string()
       .required('Email is required')
@@ -31,7 +32,6 @@ export const Form = () => {
   })
 
   const {
-    control,
     handleSubmit,
     formState: { errors },
   } = methods
@@ -48,7 +48,7 @@ export const Form = () => {
         <RHFTextField
           name='password'
           label='Password'
-          type='password'
+          type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
               <InputAdornment position='end'>
