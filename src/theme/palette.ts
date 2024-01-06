@@ -8,6 +8,10 @@ const ERROR = {
   main: '#DF6675',
 }
 
+const BLUE = {
+  main: '#4783DD',
+}
+
 const GREY = {
   0: '#FFFFFF',
   100: '#F9FAFB',
@@ -33,12 +37,15 @@ const COMMON: PaletteOptions = {
   common: { black: '#000', white: '#fff' },
   // disabled color
   grey: GREY,
+  primary: {
+    main: BLUE.main,
+  },
   divider: GREY[500_24],
   action: {
     active: '#8696a0',
     hover: GREY[500_24],
     focus: '#F5F6F6',
-    selected: '#4783DD',
+    selected: BLUE.main,
     disabled: GREY[600],
     disabledBackground: GREY[500_24],
     hoverOpacity: 0.08,

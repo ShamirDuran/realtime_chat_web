@@ -2,18 +2,28 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { LoadingButton } from '@mui/lab'
-import { IconButton, InputAdornment, Link, Stack } from '@mui/material'
+import { IconButton, InputAdornment, Stack } from '@mui/material'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 import * as Yup from 'yup'
+import { AuthService } from '../../../api/services'
 import { FormProvider, RHFTextField } from '../../../components'
 
-export const RegisterForm = () => {
+interface Props {
+  handleError: (error: string) => void
+}
+
+export const RegisterForm = ({ handleError }: Props) => {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
 
   // TODO: Add length validation
   const LoginSchema = Yup.object({
+    firstName: Yup.string().required('First name is required'),
+    lastName: Yup.string().required('Last name is required'),
     email: Yup.string()
       .required('Email is required')
       .email('Email must be a valid email address'),
@@ -24,9 +34,11 @@ export const RegisterForm = () => {
   })
 
   const defaultValues = {
-    email: '',
-    password: '',
-    passwordConfirmation: '',
+    firstName: 'Shamir',
+    lastName: 'Duran',
+    email: 'shamirduran15@gmail.com',
+    password: 'Password1234.',
+    passwordConfirmation: 'Password1234.',
   }
 
   const methods = useForm({
@@ -35,22 +47,44 @@ export const RegisterForm = () => {
   })
 
   const {
+    watch,
     handleSubmit,
     formState: { errors },
   } = methods
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data)
+    setIsLoading(true)
+    AuthService.register(data.firstName, data.lastName, data.email, data.password)
+      .then((resp) => {
+        toast.success(resp.msg)
+        navigate('/auth/login')
+      })
+      .catch((err) => handleError(err.msg))
+      .finally(() => setIsLoading(false))
   })
 
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Stack spacing={3} mb={5}>
         <RHFTextField
+          name='firstName'
+          label='First name'
+          type='text'
+          disabled={isLoading}
+          fullWidth
+        />
+        <RHFTextField
+          name='lastName'
+          label='Last name'
+          type='text'
+          disabled={isLoading}
+          fullWidth
+        />
+        <RHFTextField
           name='email'
           label='Email address'
           type='email'
-          tabIndex={1}
+          disabled={isLoading}
           fullWidth
         />
 
@@ -59,7 +93,7 @@ export const RegisterForm = () => {
           label='Password'
           type={showPassword ? 'text' : 'password'}
           InputProps={{
-            endAdornment: (
+            endAdornment: watch('password') && (
               <InputAdornment position='end'>
                 <IconButton onClick={() => setShowPassword(!showPassword)} edge='end'>
                   {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
@@ -67,6 +101,7 @@ export const RegisterForm = () => {
               </InputAdornment>
             ),
           }}
+          disabled={isLoading}
           fullWidth
         />
 
@@ -75,7 +110,7 @@ export const RegisterForm = () => {
           label='Confirm password'
           type={showPassword ? 'text' : 'password'}
           InputProps={{
-            endAdornment: (
+            endAdornment: watch('passwordConfirmation') && (
               <InputAdornment position='end'>
                 <IconButton onClick={() => setShowPassword(!showPassword)} edge='end'>
                   {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
@@ -83,6 +118,7 @@ export const RegisterForm = () => {
               </InputAdornment>
             ),
           }}
+          disabled={isLoading}
           fullWidth
         />
       </Stack>

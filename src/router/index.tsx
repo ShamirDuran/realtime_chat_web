@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, createBrowserRouter, redirect } from 'react-router-dom'
-import { DashboardPage, LoginPage, NotFound, RegisterPage } from '../pages'
+import { DashboardPage, LoginPage, NotFound, RegisterPage, VerifyAccount } from '../pages'
 import { authProvider } from '../providers'
 
 const router = createBrowserRouter([
@@ -9,22 +9,31 @@ const router = createBrowserRouter([
     Component: DashboardPage,
   },
   {
-    path: '/login',
-    Component: LoginPage,
-  },
-  {
-    path: '/register',
-    Component: RegisterPage,
-  },
-  {
     path: '/*',
     Component: NotFound,
+  },
+  {
+    path: '/auth',
+    children: [
+      {
+        path: 'login',
+        Component: LoginPage,
+      },
+      {
+        path: 'register',
+        Component: RegisterPage,
+      },
+      {
+        path: 'verify-account/:token',
+        Component: VerifyAccount,
+      },
+    ],
   },
   {
     path: '/logout',
     action: async () => {
       await authProvider.signout()
-      return redirect('/login')
+      return redirect('/auth/login')
     },
   },
 ])
@@ -38,7 +47,7 @@ function protectedLoader({ request }: LoaderFunctionArgs) {
     const currentPath = new URL(request.url).pathname
     currentPath != '/' && params.set('from', new URL(request.url).pathname)
 
-    return redirect('/login?' + params.toString())
+    return redirect('/auth/login?' + params.toString())
   }
   return null
 }

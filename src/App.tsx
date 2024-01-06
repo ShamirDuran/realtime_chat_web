@@ -4,13 +4,17 @@ import { StylesProvider } from './providers'
 import { store } from './redux/store'
 import router from './router'
 import ThemeProvider from './theme'
+import { Toaster } from 'sonner'
 
 function App() {
   return (
     <Provider store={store}>
       <ThemeProvider>
         <StylesProvider>
-          <RouterProvider router={router} fallbackElement={<p>Initial Load...</p>} />
+          <>
+            <Toaster position='bottom-right' richColors />
+            <RouterProvider router={router} fallbackElement={<p>Initial Load...</p>} />
+          </>
         </StylesProvider>
       </ThemeProvider>
     </Provider>

@@ -5,13 +5,23 @@ import { LoadingButton } from '@mui/lab'
 import { IconButton, InputAdornment, Link, Stack } from '@mui/material'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 import { FormProvider, RHFTextField } from '../../../components'
+import { AuthService } from '../../../api/services'
+import { toast } from 'sonner'
+import { useAppDispatch } from '../../../hooks'
+import { login } from '../../../redux/slices/auth.slice'
 
-export const LoginForm = () => {
+interface Props {
+  handleError: (error: string) => void
+}
+
+export const LoginForm = ({ handleError }: Props) => {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   // TODO: Add length validation
   const LoginSchema = Yup.object({
@@ -22,8 +32,8 @@ export const LoginForm = () => {
   })
 
   const defaultValues = {
-    email: '',
-    password: '',
+    email: 'shamirduran15@gmail.com',
+    password: 'Password1234.',
   }
 
   const methods = useForm({
@@ -37,13 +47,27 @@ export const LoginForm = () => {
   } = methods
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data)
+    setIsLoading(true)
+    AuthService.login(data.email, data.password)
+      .then((resp) => {
+        toast.success(resp.msg)
+        dispatch(login(resp))
+        navigate('/')
+      })
+      .catch((err) => handleError(err.msg))
+      .finally(() => setIsLoading(false))
   })
 
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Stack spacing={3}>
-        <RHFTextField name='email' label='Email address' type='email' fullWidth />
+        <RHFTextField
+          name='email'
+          label='Email address'
+          type='email'
+          disabled={isLoading}
+          fullWidth
+        />
 
         <RHFTextField
           name='password'
@@ -58,6 +82,7 @@ export const LoginForm = () => {
               </InputAdornment>
             ),
           }}
+          disabled={isLoading}
           fullWidth
         />
       </Stack>
@@ -65,7 +90,7 @@ export const LoginForm = () => {
       <Stack alignItems='flex-end' sx={{ my: 2 }}>
         <Link
           component={RouterLink}
-          to='/reset-password'
+          to='/auth/reset-password'
           variant='body2'
           color='inherit'
           underline='always'

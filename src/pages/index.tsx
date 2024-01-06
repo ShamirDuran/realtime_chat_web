@@ -1,5 +1,6 @@
 export * from './Auth/Login'
 export * from './Auth/Register'
+export * from './Auth/Verification'
 export * from './Dashboard'
 export * from './LoadingPage'
 export * from './NotFound'

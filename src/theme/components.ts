@@ -26,7 +26,7 @@ const components: Components<Omit<Theme, 'components'>> = {
     styleOverrides: {
       root: ({ theme }) => ({
         '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-          borderColor: theme.palette.action.selected,
+          borderColor: theme.palette.primary.main,
         },
       }),
     },
