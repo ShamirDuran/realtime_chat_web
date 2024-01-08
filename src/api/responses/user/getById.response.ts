@@ -1,6 +1,6 @@
 import { User } from '../../models'
 import { BaseResponse } from '../base.response'
 
-export interface FindByIdResponse extends BaseResponse {
+export interface GetById extends BaseResponse {
   user: User
 }

@@ -22,7 +22,7 @@ export const DashboardLayout = () => {
     const decoded = verifyToken<JWTDecoded>(token)
     if (!decoded || !decoded.uid) return clearAndExit()
 
-    UserService.findById(decoded.uid)
+    UserService.getById(decoded.uid)
       .then((resp) => {
         dispatch(login({ token, user: resp.user }))
         dispatch(setIsLoading(false))
