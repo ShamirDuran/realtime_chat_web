@@ -22,8 +22,7 @@ export const RegisterForm = ({ handleError }: Props) => {
 
   // TODO: Add length validation
   const LoginSchema = Yup.object({
-    firstName: Yup.string().required('First name is required'),
-    lastName: Yup.string().required('Last name is required'),
+    fullName: Yup.string().required('Full name is required'),
     email: Yup.string()
       .required('Email is required')
       .email('Email must be a valid email address'),
@@ -34,8 +33,7 @@ export const RegisterForm = ({ handleError }: Props) => {
   })
 
   const defaultValues = {
-    firstName: 'Shamir',
-    lastName: 'Duran',
+    fullName: 'Shamir Duran',
     email: 'shamirduran15@gmail.com',
     password: 'Password1234.',
     passwordConfirmation: 'Password1234.',
@@ -54,7 +52,7 @@ export const RegisterForm = ({ handleError }: Props) => {
 
   const onSubmit = handleSubmit((data) => {
     setIsLoading(true)
-    AuthService.register(data.firstName, data.lastName, data.email, data.password)
+    AuthService.register(data.fullName, data.email, data.password)
       .then((resp) => {
         toast.success(resp.msg)
         navigate('/auth/login')
@@ -67,19 +65,13 @@ export const RegisterForm = ({ handleError }: Props) => {
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Stack spacing={3} mb={5}>
         <RHFTextField
-          name='firstName'
-          label='First name'
+          name='fullName'
+          label='Full name'
           type='text'
           disabled={isLoading}
           fullWidth
         />
-        <RHFTextField
-          name='lastName'
-          label='Last name'
-          type='text'
-          disabled={isLoading}
-          fullWidth
-        />
+
         <RHFTextField
           name='email'
           label='Email address'

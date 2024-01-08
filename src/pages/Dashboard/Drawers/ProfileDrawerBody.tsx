@@ -68,7 +68,7 @@ export const ProfileDrawerBody = () => {
   const user = useAppSelector(selectAuthUser)
 
   const [formValues, handleChange] = useForm({
-    name: `${upperCammelCase(user.firstName)} ${upperCammelCase(user.lastName)}`,
+    name: upperCammelCase(user.fullName),
     description: user?.about ?? '',
   })
 

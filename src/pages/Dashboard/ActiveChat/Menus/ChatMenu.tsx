@@ -6,7 +6,7 @@ interface Props {
   handleClose: () => void
 }
 
-export const ActiveMenu = ({ menuRef, isOpen, handleClose }: Props) => {
+export const ChatMenu = ({ menuRef, isOpen, handleClose }: Props) => {
   const handleContactInfo = () => {
     console.log('Contact info')
   }

@@ -4,13 +4,8 @@ import { LoginResponse, RegisterResponse, VerifyResponse } from '../responses'
 const api = new ApiAdapter()
 
 export class AuthService {
-  static async register(
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-  ) {
-    const data = { firstName, lastName, email, password }
+  static async register(fullName: string, email: string, password: string) {
+    const data = { fullName, email, password }
     return await api.post<RegisterResponse>('/auth/register', data)
   }
 

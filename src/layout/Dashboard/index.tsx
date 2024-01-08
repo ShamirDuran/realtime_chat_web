@@ -7,6 +7,7 @@ import { login, logout, selectAuthState } from '../../redux/slices/auth.slice'
 import { selectIsLoading, setIsLoading } from '../../redux/slices/ui.slice'
 import { verifyToken } from '../../utils'
 import { LoadingPage } from '../../pages'
+import { toast } from 'sonner'
 
 export const DashboardLayout = () => {
   const navigate = useNavigate()
@@ -35,6 +36,7 @@ export const DashboardLayout = () => {
     dispatch(logout())
     dispatch(setIsLoading(false))
     localStorage.removeItem('token')
+    toast.warning('Session expired, please login again')
     return navigate('/auth/login')
   }
 

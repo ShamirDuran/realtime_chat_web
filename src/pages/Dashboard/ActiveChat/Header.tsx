@@ -10,7 +10,7 @@ import {
   TruncatedText,
 } from '../../../components'
 import { useMenu, useStyles } from '../../../hooks'
-import { ActiveMenu } from './Menus/ActiveMenu'
+import { ChatMenu } from './Menus/ChatMenu'
 
 export const Header = () => {
   const styles = useStyles()
@@ -60,7 +60,7 @@ export const Header = () => {
         </Stack>
       </Stack>
 
-      <ActiveMenu menuRef={menuRef} isOpen={isMenuOpen} handleClose={handleCloseMenu} />
+      <ChatMenu menuRef={menuRef} isOpen={isMenuOpen} handleClose={handleCloseMenu} />
     </StyledToolbar>
   )
 }

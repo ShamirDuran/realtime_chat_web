@@ -1,12 +1,12 @@
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred'
 import { Link, Stack, Typography, useTheme } from '@mui/material'
-import { JwtPayload } from 'jwt-decode'
 import { useEffect, useState } from 'react'
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom'
 import { AuthService } from '../../../api/services'
 import { JWTDecoded } from '../../../interfaces'
 import { verifyToken } from '../../../utils'
+import { LoadingPage } from '../../LoadingPage'
 
 export const VerifyAccount = () => {
   const { token } = useParams()
@@ -31,6 +31,10 @@ export const VerifyAccount = () => {
       }
     } else navigate('/auth/login')
   }, [])
+
+  if (isLoading) {
+    return <LoadingPage />
+  }
 
   return (
     <Stack width='100vw' height='100vh' justifyContent='center' alignItems='center'>
