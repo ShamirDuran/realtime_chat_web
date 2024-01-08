@@ -11,10 +11,6 @@ export const ChatMenu = ({ menuRef, isOpen, handleClose }: Props) => {
     console.log('Contact info')
   }
 
-  const handleClearChat = () => {
-    console.log('Clear chat')
-  }
-
   const handleDeleteChat = () => {
     console.log('Delete chat')
   }
@@ -40,14 +36,6 @@ export const ChatMenu = ({ menuRef, isOpen, handleClose }: Props) => {
         }}
       >
         Close chat
-      </MenuItem>
-      <MenuItem
-        onClick={() => {
-          handleClose()
-          handleClearChat()
-        }}
-      >
-        Clear chat
       </MenuItem>
       <MenuItem
         onClick={() => {
