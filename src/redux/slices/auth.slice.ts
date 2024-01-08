@@ -37,5 +37,6 @@ export const { login, logout } = authSlice.actions
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
 export const selectAuthState = (state: RootState) => state.auth.isLoggedIn
+export const selectAuthUser = (state: RootState) => state.auth.user
 
 export default authSlice.reducer

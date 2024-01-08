@@ -10,18 +10,32 @@ import {
   TooltipIconbutton,
   TruncatedText,
 } from '../../../components'
-import { useAppDispatch, useMenu, useStyles } from '../../../hooks'
+import { useAppDispatch, useAppSelector, useMenu, useStyles } from '../../../hooks'
 import { toggleProfileDrawer } from '../../../redux/slices/ui.slice'
 import { MainMenu } from './Menus/MainMenu'
+import { selectAuthUser } from '../../../redux/slices/auth.slice'
+import { upperCammelCase } from '../../../utils'
 
 export const Header = () => {
   const theme = useTheme()
   const styles = useStyles()
   const dispatch = useAppDispatch()
   const [menuRef, isMenuOpen, handleOpenMenu, handleCloseMenu] = useMenu()
+  const user = useAppSelector(selectAuthUser)
 
   const handleOpenProfileDrawer = () => {
     dispatch(toggleProfileDrawer())
+  }
+
+  const getWelcomeMessage = () => {
+    const hours = new Date().getHours()
+    if (hours < 12) {
+      return 'Good Morning'
+    } else if (hours >= 12 && hours <= 17) {
+      return 'Good Afternoon'
+    } else if (hours >= 17 && hours <= 24) {
+      return 'Good Evening'
+    }
   }
 
   return (
@@ -32,7 +46,7 @@ export const Header = () => {
           sx={{ cursor: 'pointer', display: 'flex' }}
         >
           <BadgeWrapper vertical='bottom' horizontal='right' ripple={true}>
-            <CircleAvatar src={faker.image.avatarLegacy()} />
+            <CircleAvatar src={user?.avatar ?? ''} />
           </BadgeWrapper>
 
           {/* User info */}
@@ -47,12 +61,14 @@ export const Header = () => {
               variant='body2'
               letterSpacing={0.4}
             >
-              Good Morning
+              {getWelcomeMessage()}
             </Typography>
             <TruncatedText
               fontWeight={styles.fonts.title.weight}
               textOverflow='ellipsis'
-              text={faker.person.fullName()}
+              text={`${upperCammelCase(user?.firstName!)} ${upperCammelCase(
+                user?.lastName!,
+              )}`}
             />
           </Stack>
         </Box>

@@ -1,6 +1,6 @@
+import CameraAltIcon from '@mui/icons-material/CameraAlt'
 import CheckIcon from '@mui/icons-material/Check'
 import EditIcon from '@mui/icons-material/Edit'
-import CameraAltIcon from '@mui/icons-material/CameraAlt'
 import {
   Avatar,
   Box,
@@ -12,7 +12,8 @@ import {
 } from '@mui/material'
 import { useState } from 'react'
 import styled from 'styled-components'
-import { useForm, useStyles } from '../../../hooks'
+import { useAppSelector, useForm, useStyles } from '../../../hooks'
+import { selectAuthUser } from '../../../redux/slices/auth.slice'
 
 const avatarSize = 200
 
@@ -62,11 +63,13 @@ const DynamicAdortments = ({
 export const ProfileDrawerBody = () => {
   const [editingName, setEditingName] = useState(false)
   const [editingDescription, setEditingDescription] = useState(false)
+  const [isHovered, setHovered] = useState(false)
+  const user = useAppSelector(selectAuthUser)
+
   const [formValues, handleChange] = useForm({
-    name: 'Shamir Duran',
+    name: '',
     description: '',
   })
-  const [isHovered, setHovered] = useState(false)
 
   return (
     <ContentWrapper>
@@ -77,7 +80,7 @@ export const ProfileDrawerBody = () => {
         position='relative'
         my={3}
       >
-        <Avatar sx={{ width: avatarSize, height: avatarSize }} />
+        <Avatar sx={{ width: avatarSize, height: avatarSize }} src={user?.avatar ?? ''} />
 
         {isHovered && (
           <Stack
