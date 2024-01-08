@@ -11,28 +11,26 @@ export const RegisterPage = () => {
   }
 
   return (
-    <Stack width='100vw' height='100vh' alignItems='center' justifyContent='center'>
-      <Container maxWidth='sm'>
-        <Stack spacing={2} mb={5}>
-          <Typography variant='h4'>Register</Typography>
+    <>
+      <Stack spacing={2} mb={5}>
+        <Typography variant='h4'>Register</Typography>
 
-          <Stack direction='row' spacing={0.5}>
-            <Typography variant='body2'>Have an account?</Typography>
+        <Stack direction='row' spacing={0.5}>
+          <Typography variant='body2'>Have an account?</Typography>
 
-            <Link to={'/auth/login'} component={RouterLink} variant='subtitle2'>
-              Login
-            </Link>
-          </Stack>
+          <Link to={'/auth/login'} component={RouterLink} variant='subtitle2'>
+            Login
+          </Link>
         </Stack>
+      </Stack>
 
-        {registerError && (
-          <Alert severity='error' variant='filled' sx={{ mb: 3 }}>
-            {registerError}
-          </Alert>
-        )}
+      {registerError && (
+        <Alert severity='error' variant='filled' sx={{ mb: 3 }}>
+          {registerError}
+        </Alert>
+      )}
 
-        <RegisterForm handleError={handleError} />
-      </Container>
-    </Stack>
+      <RegisterForm handleError={handleError} />
+    </>
   )
 }

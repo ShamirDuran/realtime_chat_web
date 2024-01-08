@@ -18,12 +18,7 @@ export class AuthService {
     const data = { email, password }
     const resp = await api.post<LoginResponse>('auth/login', data)
 
-    window.localStorage.setItem('token', resp.token)
-    window.localStorage.setItem('uid', resp.uid)
-    window.localStorage.setItem('firstName', resp.firstName)
-    window.localStorage.setItem('lastName', resp.lastName)
-    window.localStorage.setItem('email', resp.email)
-
+    localStorage.setItem('token', resp.token)
     return resp
   }
 

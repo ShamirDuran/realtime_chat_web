@@ -1,26 +1,22 @@
 import { LoaderFunctionArgs, createBrowserRouter, redirect } from 'react-router-dom'
 import { DashboardPage, LoginPage, NotFound, RegisterPage, VerifyAccount } from '../pages'
-import { authProvider } from '../providers'
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    loader: protectedLoader,
-    Component: DashboardPage,
-  },
-  {
-    path: '/*',
-    Component: NotFound,
-  },
   {
     path: '/auth',
     children: [
       {
+        path: '',
+        loader: redirectToLoginLoader,
+      },
+      {
         path: 'login',
+        loader: isLoggedLoader,
         Component: LoginPage,
       },
       {
         path: 'register',
+        loader: isLoggedLoader,
         Component: RegisterPage,
       },
       {
@@ -30,24 +26,41 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/logout',
-    action: async () => {
-      await authProvider.signout()
-      return redirect('/auth/login')
-    },
+    path: '/',
+    loader: protectedLoader,
+    Component: DashboardPage,
+  },
+  {
+    path: '/*',
+    Component: NotFound,
   },
 ])
+
+function redirectToLoginLoader() {
+  return redirect('/auth/login')
+}
 
 function protectedLoader({ request }: LoaderFunctionArgs) {
   // If the user is not logged in and tries to access `/protected`, we redirect
   // them to `/login` with a `from` parameter that allows login to redirect back
   // to this page upon successful authentication
-  if (!authProvider.isAuthenticated) {
+  const isLogged = localStorage.getItem('token')
+
+  if (!isLogged) {
     const params = new URLSearchParams()
     const currentPath = new URL(request.url).pathname
     currentPath != '/' && params.set('from', new URL(request.url).pathname)
 
     return redirect('/auth/login?' + params.toString())
+  }
+  return null
+}
+
+function isLoggedLoader() {
+  const isLogged = localStorage.getItem('token')
+
+  if (isLogged) {
+    return redirect('/')
   }
   return null
 }
