@@ -26,5 +26,6 @@ export const { toggleProfileDrawer, setIsLoading } = uiSlice.actions
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
 export const selectProfileDrawer = (state: RootState) => state.ui.openProfileDrawer
+export const selectIsLoading = (state: RootState) => state.ui.isLoading
 
 export default uiSlice.reducer

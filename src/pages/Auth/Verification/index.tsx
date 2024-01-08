@@ -5,12 +5,8 @@ import { JwtPayload } from 'jwt-decode'
 import { useEffect, useState } from 'react'
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom'
 import { AuthService } from '../../../api/services'
+import { JWTDecoded } from '../../../interfaces'
 import { verifyToken } from '../../../utils'
-
-interface JWTDecoded extends JwtPayload {
-  uid: string
-  firstName: string
-}
 
 export const VerifyAccount = () => {
   const { token } = useParams()

@@ -1,3 +1,3 @@
-import { BaseResponse } from './base.response'
+import { BaseResponse } from '../base.response'
 
 export interface VerifyResponse extends BaseResponse {}
