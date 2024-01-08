@@ -51,7 +51,6 @@ export const LoginForm = ({ handleError }: Props) => {
     AuthService.login(data.email, data.password)
       .then((resp) => {
         toast.success(resp.msg)
-        dispatch(login(resp))
         navigate('/')
       })
       .catch((err) => handleError(err.msg))

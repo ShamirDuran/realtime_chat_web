@@ -14,6 +14,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { useAppSelector, useForm, useStyles } from '../../../hooks'
 import { selectAuthUser } from '../../../redux/slices/auth.slice'
+import { upperCammelCase } from '../../../utils'
 
 const avatarSize = 200
 
@@ -67,8 +68,8 @@ export const ProfileDrawerBody = () => {
   const user = useAppSelector(selectAuthUser)
 
   const [formValues, handleChange] = useForm({
-    name: '',
-    description: '',
+    name: `${upperCammelCase(user.firstName)} ${upperCammelCase(user.lastName)}`,
+    description: user?.about ?? '',
   })
 
   return (

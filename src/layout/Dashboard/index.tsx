@@ -12,12 +12,12 @@ export const DashboardLayout = () => {
   const navigate = useNavigate()
   const isLoading = useAppSelector(selectIsLoading)
   const authState = useAppSelector(selectAuthState)
+  const token = localStorage.getItem('token')
   const dispatch = useAppDispatch()
 
   const validateAuth = () => {
     dispatch(setIsLoading(true))
 
-    const token = localStorage.getItem('token')
     if (!token) return clearAndExit()
 
     const decoded = verifyToken<JWTDecoded>(token)
@@ -38,8 +38,7 @@ export const DashboardLayout = () => {
     return navigate('/auth/login')
   }
 
-  if (!authState) {
-    console.log('called')
+  if (token && !authState) {
     validateAuth()
   }
 

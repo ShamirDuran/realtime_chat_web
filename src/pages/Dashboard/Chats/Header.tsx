@@ -66,9 +66,9 @@ export const Header = () => {
             <TruncatedText
               fontWeight={styles.fonts.title.weight}
               textOverflow='ellipsis'
-              text={`${upperCammelCase(user?.firstName!)} ${upperCammelCase(
-                user?.lastName!,
-              )}`}
+              text={`
+                ${upperCammelCase(user.firstName)} ${upperCammelCase(user.lastName)}
+              `}
             />
           </Stack>
         </Box>

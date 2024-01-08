@@ -4,12 +4,19 @@ import { User } from '../../api/models'
 
 interface AuthState {
   isLoggedIn: boolean
-  user?: User
+  user: User
   token?: string
 }
 
 const initialState: AuthState = {
   isLoggedIn: false,
+  user: {
+    uid: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    status: '',
+  },
 }
 
 export const authSlice = createSlice({
@@ -24,7 +31,7 @@ export const authSlice = createSlice({
     logout: (state) => {
       state.isLoggedIn = false
       state.token = undefined
-      state.user = undefined
+      state.user = initialState.user
       localStorage.removeItem('token')
     },
   },
