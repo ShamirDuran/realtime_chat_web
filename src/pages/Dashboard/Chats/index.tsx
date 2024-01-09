@@ -1,11 +1,11 @@
 import GroupsIcon from '@mui/icons-material/Groups'
 import PushPinIcon from '@mui/icons-material/PushPin'
 import { Box, Stack, useTheme } from '@mui/material'
+import { SearchBar } from '../../../components'
 import { useStyles } from '../../../hooks'
 import { Chat } from './Chat'
 import { Header } from './Header'
 import { Section } from './Section'
-import { SearchBar } from './SearchBar'
 
 export const Chats = () => {
   const theme = useTheme()
@@ -26,7 +26,7 @@ export const Chats = () => {
       {/* Toolbar */}
       <Header />
 
-      <SearchBar />
+      <SearchBar mx={styles.margin.root.horizontal} my={2.3} handleSearch={() => {}} />
 
       {/* Chats */}
       <Stack overflow='auto'>

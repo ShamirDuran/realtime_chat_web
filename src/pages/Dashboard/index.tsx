@@ -2,6 +2,7 @@ import { Stack } from '@mui/material'
 import { ActiveChat } from './ActiveChat'
 import { Chats } from './Chats'
 import { ProfileDrawer } from './Drawers/ProfileDrawer'
+import { ContactExplorerModal } from './Modals/ContactExplorer'
 
 export const DashboardPage = () => {
   return (
@@ -10,6 +11,7 @@ export const DashboardPage = () => {
       <ActiveChat />
 
       <ProfileDrawer />
+      <ContactExplorerModal />
     </Stack>
   )
 }

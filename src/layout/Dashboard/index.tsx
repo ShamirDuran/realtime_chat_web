@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { UserService } from '../../api/services'
 import { useAppDispatch, useAppSelector } from '../../hooks'

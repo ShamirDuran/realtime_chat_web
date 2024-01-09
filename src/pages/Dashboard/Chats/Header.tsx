@@ -11,7 +11,10 @@ import {
   TruncatedText,
 } from '../../../components'
 import { useAppDispatch, useAppSelector, useMenu, useStyles } from '../../../hooks'
-import { toggleProfileDrawer } from '../../../redux/slices/ui.slice'
+import {
+  toggleContactExplorerModal,
+  toggleProfileDrawer,
+} from '../../../redux/slices/ui.slice'
 import { MainMenu } from './Menus/MainMenu'
 import { selectAuthUser } from '../../../redux/slices/auth.slice'
 import { upperCammelCase } from '../../../utils'
@@ -25,6 +28,10 @@ export const Header = () => {
 
   const handleOpenProfileDrawer = () => {
     dispatch(toggleProfileDrawer())
+  }
+
+  const handleOpenContactExplorerModal = () => {
+    dispatch(toggleContactExplorerModal())
   }
 
   const getWelcomeMessage = () => {
@@ -83,7 +90,11 @@ export const Header = () => {
           }}
           spacing={1.2}
         >
-          <TooltipIconbutton size='large' tooltipTitle='Start new chat'>
+          <TooltipIconbutton
+            size='large'
+            tooltipTitle='Start new chat'
+            onClick={handleOpenContactExplorerModal}
+          >
             <AddIcon color='inherit' fontSize='small' />
           </TooltipIconbutton>
 
