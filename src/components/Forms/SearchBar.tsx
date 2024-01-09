@@ -53,6 +53,8 @@ export const SearchBar = ({
         name='search'
         value={formValue.search}
         placeholder='Search'
+        autoComplete='off'
+        autoCorrect='off'
         sx={{
           lineHeight: theme.typography.body2.lineHeight,
           color: theme.typography.body2.color,

@@ -10,7 +10,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 import { User } from '../../../api/models'
 import { UserService } from '../../../api/services'
@@ -18,6 +18,7 @@ import { CircleAvatar, SearchBar, StyledModal } from '../../../components'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
 import { selectUiState, toggleContactExplorerModal } from '../../../redux/slices/ui.slice'
 import { upperCammelCase } from '../../../utils'
+import { debounce } from 'lodash'
 
 interface ContactListProps {
   contacts: User[]
@@ -83,14 +84,21 @@ export const ContactExplorerModal = () => {
       .finally(() => setIsLoading(false))
   }
 
-  const handleSearch = (value: string) => {
-    if (!value) return handleFetchContacts()
-    handleFetchContacts(value)
-  }
+  const debouncedSearch = useRef(
+    debounce(async (criteria) => {
+      handleFetchContacts(criteria)
+    }, 300),
+  ).current
 
   useEffect(() => {
-    if (!open) return
-    handleFetchContacts()
+    return () => debouncedSearch.cancel()
+  }, [debouncedSearch])
+
+  useEffect(() => {
+    return () => {
+      setContacts([])
+      setIsLoading(true)
+    }
   }, [open])
 
   return (
@@ -102,7 +110,7 @@ export const ContactExplorerModal = () => {
       maxWidth='xs'
       fullWidth={true}
     >
-      <SearchBar handleSearch={handleSearch} bgcolor='white' />
+      <SearchBar handleSearch={debouncedSearch} bgcolor='white' />
 
       {isLoading ? (
         <Stack
