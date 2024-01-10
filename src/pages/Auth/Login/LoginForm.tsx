@@ -11,7 +11,6 @@ import { FormProvider, RHFTextField } from '../../../components'
 import { AuthService } from '../../../api/services'
 import { toast } from 'sonner'
 import { useAppDispatch } from '../../../hooks'
-import { login } from '../../../redux/slices/auth.slice'
 
 interface Props {
   handleError: (error: string) => void
@@ -20,7 +19,6 @@ interface Props {
 export const LoginForm = ({ handleError }: Props) => {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   // TODO: Add length validation

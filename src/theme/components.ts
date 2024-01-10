@@ -31,6 +31,15 @@ const components: Components<Omit<Theme, 'components'>> = {
       }),
     },
   },
+  MuiToolbar: {
+    styleOverrides: {
+      regular: {
+        '@media (min-width: 600px)': {
+          minHeight: 64,
+        },
+      },
+    },
+  },
 }
 
 export default components

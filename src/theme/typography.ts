@@ -1,5 +1,4 @@
 import { TypographyOptions } from '@mui/material/styles/createTypography'
-import { pxToRem } from '../utils'
 
 const FONT_PRIMARY = 'Manrope, Public Sans, sans-serif'
 

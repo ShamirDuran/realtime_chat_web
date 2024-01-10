@@ -1,18 +1,34 @@
 import { Box, Stack } from '@mui/material'
-import { useStyles } from '../../../hooks'
+import React, { useEffect, useRef, useState } from 'react'
+import { toast } from 'sonner'
+import { UserService } from '../../../api/services'
+import { useAppDispatch, useAppSelector, useStyles } from '../../../hooks'
+import { selectUiState, setActiveUserChat } from '../../../redux/slices/ui.slice'
 import { Header } from './Header'
+import { InputMessage } from './InputMessage'
 import { Message } from './Message'
 import fakeChat from './data'
-import React, { useRef } from 'react'
-import { InputMessage } from './InputMessage'
 
 export const ActiveChat = () => {
   const styles = useStyles()
   const scrollRef: React.RefObject<HTMLDivElement> = useRef(null)
-  const [messages, setMessages] = React.useState<any>([])
+  const [messages, setMessages] = useState<any>([])
+  const dispatch = useAppDispatch()
+  const { activeUserChat: contact } = useAppSelector(selectUiState)
 
-  React.useEffect(() => {
-    setMessages(fakeChat(30))
+  const retrieveContactData = () => {
+    console.log('executed')
+
+    if (!contact) return
+
+    UserService.getById(contact.uid)
+      .then(({ user }) => dispatch(setActiveUserChat({ user })))
+      .catch((err) => toast.error(err.msg))
+  }
+
+  useEffect(() => {
+    retrieveContactData()
+    setMessages(fakeChat(0))
 
     // weird trick to scroll to bottom on first render
     const scrollContainer = scrollRef.current
@@ -24,10 +40,10 @@ export const ActiveChat = () => {
   }, [])
 
   return (
-    <Stack sx={{ flexGrow: 1, maxHeight: '100vh' }} position='relative'>
+    <Stack flexGrow={1} maxHeight='100vh' position='relative'>
       <Header />
 
-      <Box ref={scrollRef} bgcolor='background.paper' pb={1} overflow='auto'>
+      <Box ref={scrollRef} flexGrow={1} bgcolor='background.paper' pb={1} overflow='auto'>
         <Stack
           flexGrow={1}
           spacing={1.5}

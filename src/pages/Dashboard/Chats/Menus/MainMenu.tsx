@@ -20,7 +20,6 @@ export const MainMenu = ({ menuRef, isOpen, handleClose }: Props) => {
   const handleLogOut = () => {
     dispatch(logout())
     navigate('/auth/login')
-    console.log('Log Out')
   }
 
   return (

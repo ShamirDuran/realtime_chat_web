@@ -9,17 +9,20 @@ import {
   TooltipIconbutton,
   TruncatedText,
 } from '../../../components'
-import { useMenu, useStyles } from '../../../hooks'
+import { useAppSelector, useMenu, useStyles } from '../../../hooks'
 import { ChatMenu } from './Menus/ChatMenu'
+import { selectUiState } from '../../../redux/slices/ui.slice'
+import { upperCammelCase } from '../../../utils'
 
 export const Header = () => {
   const styles = useStyles()
+  const { activeUserChat } = useAppSelector(selectUiState)
   const [menuRef, isMenuOpen, handleOpenMenu, handleCloseMenu] = useMenu()
 
   return (
     <StyledToolbar>
-      <Stack direction='row' flex={1}>
-        <CircleAvatar src={faker.image.avatarLegacy()} />
+      <Stack p={0} direction='row' flex={1}>
+        <CircleAvatar src={activeUserChat?.avatar ?? ''} />
 
         {/* User info */}
         <Stack
@@ -31,7 +34,7 @@ export const Header = () => {
           <TruncatedText
             fontWeight={styles.fonts.title.weight}
             textOverflow='ellipsis'
-            text={faker.person.fullName()}
+            text={upperCammelCase(activeUserChat?.fullName ?? '')}
           />
           <TruncatedText
             component='p'

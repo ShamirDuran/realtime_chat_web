@@ -13,5 +13,6 @@ export const StyledToolbar = styled(Toolbar)(({ theme }) => {
     paddingTop: theme.spacing(styles.margin.root.vertical),
     paddingBottom: theme.spacing(styles.margin.root.vertical),
     boxSizing: 'border-box',
+    maxHeight: 64,
   }
 })

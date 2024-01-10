@@ -5,5 +5,5 @@ export interface User {
   avatar?: string
   email: string
   lastSeen?: Date
-  status: string
+  status?: string
 }

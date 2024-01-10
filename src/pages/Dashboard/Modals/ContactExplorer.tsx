@@ -16,7 +16,11 @@ import { User } from '../../../api/models'
 import { UserService } from '../../../api/services'
 import { CircleAvatar, SearchBar, StyledModal } from '../../../components'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
-import { selectUiState, toggleContactExplorerModal } from '../../../redux/slices/ui.slice'
+import {
+  selectUiState,
+  setActiveUserChat,
+  toggleContactExplorerModal,
+} from '../../../redux/slices/ui.slice'
 import { upperCammelCase } from '../../../utils'
 import { debounce } from 'lodash'
 
@@ -25,6 +29,13 @@ interface ContactListProps {
 }
 
 const ContactList = ({ contacts }: ContactListProps) => {
+  const dispatch = useAppDispatch()
+
+  const handleSendMessage = (user: User) => {
+    dispatch(setActiveUserChat({ user }))
+    dispatch(toggleContactExplorerModal())
+  }
+
   if (contacts.length === 0) {
     return (
       <Stack
@@ -48,7 +59,12 @@ const ContactList = ({ contacts }: ContactListProps) => {
             key={index}
             divider
             secondaryAction={
-              <IconButton size='medium' edge='end' disableTouchRipple>
+              <IconButton
+                size='medium'
+                edge='end'
+                onClick={() => handleSendMessage(user)}
+                disableTouchRipple
+              >
                 <SendIcon fontSize='medium' />
               </IconButton>
             }
@@ -90,10 +106,12 @@ export const ContactExplorerModal = () => {
     }, 300),
   ).current
 
+  // debounce cleanup
   useEffect(() => {
     return () => debouncedSearch.cancel()
   }, [debouncedSearch])
 
+  // component cleanup
   useEffect(() => {
     return () => {
       setContacts([])
