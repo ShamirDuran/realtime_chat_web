@@ -1,11 +1,11 @@
-import { Avatar } from '@mui/material'
+import { Avatar, AvatarProps } from '@mui/material'
 
-interface Props {
+interface Props extends AvatarProps {
   src: string
   size?: number
 }
 
-export const CircleAvatar = ({ src, size = 46 }: Props) => {
+export const CircleAvatar = ({ src, size = 46, ...rest }: Props) => {
   return (
     <Avatar
       src={src}
@@ -16,6 +16,7 @@ export const CircleAvatar = ({ src, size = 46 }: Props) => {
         width: size,
         height: size,
       }}
+      {...rest}
     />
   )
 }

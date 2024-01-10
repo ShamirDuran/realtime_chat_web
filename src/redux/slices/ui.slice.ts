@@ -7,12 +7,18 @@ interface UiState {
   openContactExplorerModal: boolean
   activeUserChat?: User
   isLoading: boolean
+  isMobile?: boolean
 }
 
 const initialState: UiState = {
   openProfileDrawer: false,
   openContactExplorerModal: false,
-  activeUserChat: undefined,
+  // activeUserChat: undefined,
+  activeUserChat: {
+    uid: '1',
+    email: '',
+    fullName: 'John Doe',
+  },
   isLoading: false,
 }
 

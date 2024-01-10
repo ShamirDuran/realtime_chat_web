@@ -1,24 +1,40 @@
-import { IconButton, Tooltip } from '@mui/material'
-import { styled } from '@mui/material/styles'
+import { IconButton, IconButtonProps, Tooltip } from '@mui/material'
+import { useResponsive } from '../../hooks'
 
-interface WithTooltipProps {
+interface Props extends IconButtonProps {
   tooltipTitle?: string
-  [x: string]: any
+  disableBackground?: boolean
+  disableTouchRipple?: boolean
 }
 
-const withTooltip = (Component: React.ComponentType) => {
-  return styled(({ tooltipTitle = '', ...props }: WithTooltipProps) => (
-    <Tooltip title={tooltipTitle} arrow>
-      <Component {...props} />
+export const TooltipIconbutton = ({
+  tooltipTitle = '',
+  disableBackground = false,
+  disableTouchRipple = true,
+  ...rest
+}: Props) => {
+  const isMobile = useResponsive({ query: 'down', key: 'sm' })
+
+  return (
+    <Tooltip title={!isMobile ? tooltipTitle : ''} arrow>
+      <IconButton
+        disableRipple={disableTouchRipple}
+        disableTouchRipple={disableTouchRipple}
+        sx={{
+          '&.MuiIconButton-root': {
+            backgroundColor: disableBackground
+              ? 'inherit'
+              : (theme) => theme.palette.grey[200],
+            '&:hover': {
+              backgroundColor: disableBackground
+                ? 'inherit'
+                : (theme) => theme.palette.action.hover,
+            },
+          },
+        }}
+        size='large'
+        {...rest}
+      />
     </Tooltip>
-  ))(({ theme }) => ({
-    '&.MuiIconButton-root': {
-      backgroundColor: theme.palette.grey[200],
-      '&:hover': {
-        backgroundColor: theme.palette.action.hover,
-      },
-    },
-  }))
+  )
 }
-
-export const TooltipIconbutton = withTooltip(styled(IconButton)``)

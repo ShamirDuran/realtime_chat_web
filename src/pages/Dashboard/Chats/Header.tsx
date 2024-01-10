@@ -83,29 +83,32 @@ export const Header = () => {
         {/* Actions */}
         <Stack
           direction='row'
+          alignItems='center'
           ml={{
-            xs: 3,
-            md: 5,
+            md: 3,
             lg: 6,
           }}
-          spacing={1.2}
+          spacing={{
+            xs: 0.8,
+            sm: 1,
+            md: 1.2,
+          }}
         >
           <TooltipIconbutton
-            size='large'
             tooltipTitle='Start new chat'
             onClick={handleOpenContactExplorerModal}
           >
-            <AddIcon color='inherit' fontSize='small' />
+            <AddIcon fontSize='small' color='inherit' />
           </TooltipIconbutton>
 
           <BadgeWrapper bgcolor={theme.palette.error.main} size={12} shadow={false}>
-            <TooltipIconbutton size='large' tooltipTitle='Notifications'>
-              <NotificationsIcon color='inherit' fontSize='small' />
+            <TooltipIconbutton tooltipTitle='Notifications'>
+              <NotificationsIcon fontSize='small' color='inherit' />
             </TooltipIconbutton>
           </BadgeWrapper>
 
-          <TooltipIconbutton size='large' tooltipTitle='Menu' onClick={handleOpenMenu}>
-            <MoreVertIcon color='inherit' fontSize='small' />
+          <TooltipIconbutton tooltipTitle='Menu' onClick={handleOpenMenu}>
+            <MoreVertIcon fontSize='small' color='inherit' />
           </TooltipIconbutton>
         </Stack>
       </Stack>

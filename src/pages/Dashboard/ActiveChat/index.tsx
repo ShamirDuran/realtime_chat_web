@@ -40,7 +40,7 @@ export const ActiveChat = () => {
   }, [])
 
   return (
-    <Stack flexGrow={1} maxHeight='100vh' position='relative'>
+    <Stack flexGrow={1} height='100vh' position='relative'>
       <Header />
 
       <Box ref={scrollRef} flexGrow={1} bgcolor='background.paper' pb={1} overflow='auto'>

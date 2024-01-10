@@ -11,7 +11,13 @@ export const RegisterPage = () => {
   }
 
   return (
-    <Stack width='100vw' height='100vh' alignItems='center' justifyContent='center'>
+    <Stack
+      position='absolute'
+      width='100vw'
+      height='100%'
+      alignItems='center'
+      justifyContent='center'
+    >
       <Container maxWidth='sm'>
         <Stack spacing={2} mb={5}>
           <Typography variant='h4'>Register</Typography>

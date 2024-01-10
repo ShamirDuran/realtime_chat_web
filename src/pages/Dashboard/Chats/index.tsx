@@ -2,7 +2,7 @@ import GroupsIcon from '@mui/icons-material/Groups'
 import PushPinIcon from '@mui/icons-material/PushPin'
 import { Box, Stack, useTheme } from '@mui/material'
 import { SearchBar } from '../../../components'
-import { useStyles } from '../../../hooks'
+import { useResponsive, useStyles } from '../../../hooks'
 import { Chat } from './Chat'
 import { Header } from './Header'
 import { Section } from './Section'
@@ -10,15 +10,16 @@ import { Section } from './Section'
 export const Chats = () => {
   const theme = useTheme()
   const styles = useStyles()
+  const isMobile = useResponsive({ query: 'down', key: 'sm' })
 
   return (
     <Stack
       sx={{
-        borderRight: 1,
+        borderRight: !isMobile ? 1 : 0,
         borderRightColor: theme.palette.divider,
         borderRightStyle: 'solid',
         position: 'relative',
-        minWidth: styles.dimensions.profileDrawer.width,
+        minWidth: !isMobile ? styles.dimensions.profileDrawer.width : '100vw',
         maxWidth: styles.dimensions.profileDrawer.width,
         height: '100vh',
       }}
@@ -26,7 +27,11 @@ export const Chats = () => {
       {/* Toolbar */}
       <Header />
 
-      <SearchBar mx={styles.margin.root.horizontal} my={2.3} handleSearch={() => {}} />
+      <SearchBar
+        mx={styles.margin.root.horizontal}
+        my={isMobile ? 1.5 : 2.3}
+        handleSearch={() => {}}
+      />
 
       {/* Chats */}
       <Stack overflow='auto'>

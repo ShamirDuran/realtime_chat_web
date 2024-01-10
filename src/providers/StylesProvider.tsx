@@ -23,26 +23,30 @@ export const StylesContext = React.createContext({
   },
   dimensions: {
     profileDrawer: {
-      width: 0,
+      width: '',
     },
   },
 })
 
 export const StylesProvider = ({ children }: { children: JSX.Element }) => {
-  const isTabled = useResponsive({ query: 'up', key: 'lg' })
+  const isMobile = useResponsive({ query: 'down', key: 'sm' })
+  const isTabled = useResponsive({ query: 'down', key: 'lg' })
 
   return (
     <StylesContext.Provider
       value={{
         margin: {
-          root: { vertical: 1.5, horizontal: 3.5 },
+          root: {
+            vertical: isMobile ? 1 : 1.5,
+            horizontal: isMobile ? 1.3 : isTabled ? 2.3 : 3.5,
+          },
         },
         fonts: {
           title: {
             weight: 500,
           },
           subtitle: {
-            fontSize: 13,
+            fontSize: isMobile ? 11 : isTabled ? 12 : 13,
           },
         },
         colors: {
@@ -52,7 +56,8 @@ export const StylesProvider = ({ children }: { children: JSX.Element }) => {
         },
         dimensions: {
           profileDrawer: {
-            width: isTabled ? 520 : 430,
+            // mobile - tabled - desktop
+            width: isMobile ? '100vw' : isTabled ? '420px' : '520px',
           },
         },
       }}
