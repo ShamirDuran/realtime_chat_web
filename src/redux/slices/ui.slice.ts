@@ -13,12 +13,7 @@ interface UiState {
 const initialState: UiState = {
   openProfileDrawer: false,
   openContactExplorerModal: false,
-  // activeUserChat: undefined,
-  activeUserChat: {
-    uid: '1',
-    email: '',
-    fullName: 'John Doe',
-  },
+  activeUserChat: undefined,
   isLoading: false,
 }
 
