@@ -7,6 +7,7 @@ import { selectIsLoading, setIsLoading } from '../../redux/slices/ui.slice'
 import { verifyToken } from '../../utils'
 import { LoadingPage } from '../../pages'
 import { toast } from 'sonner'
+import { Stack } from '@mui/material'
 
 export const DashboardLayout = () => {
   const navigate = useNavigate()
@@ -42,5 +43,15 @@ export const DashboardLayout = () => {
     validateAuth()
   }
 
-  return <>{isLoading ? <LoadingPage /> : <Outlet />}</>
+  return (
+    <>
+      {isLoading ? (
+        <LoadingPage />
+      ) : (
+        <Stack position='absolute' width='100vw' height='100%' overflow='hidden'>
+          <Outlet />
+        </Stack>
+      )}
+    </>
+  )
 }

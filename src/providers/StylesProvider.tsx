@@ -37,7 +37,7 @@ export const StylesProvider = ({ children }: { children: JSX.Element }) => {
       value={{
         margin: {
           root: {
-            vertical: isMobile ? 1 : 1.5,
+            vertical: 1.5,
             horizontal: isMobile ? 1.3 : isTabled ? 2.3 : 3.5,
           },
         },

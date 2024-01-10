@@ -11,7 +11,7 @@ const MobileLayout = () => {
   const uiState = useAppSelector(selectUiState)
 
   return (
-    <Stack direction='row' position='relative'>
+    <Stack direction='row' height='100%'>
       {uiState.activeUserChat ? <ActiveChat /> : <Chats />}
 
       <ProfileDrawer />
@@ -24,7 +24,7 @@ const DesktopLayout = () => {
   const uiState = useAppSelector(selectUiState)
 
   return (
-    <Stack direction='row' position='relative'>
+    <Stack direction='row' height='100%'>
       <Chats />
 
       {uiState.activeUserChat ? <ActiveChat /> : <NoActiveChat />}

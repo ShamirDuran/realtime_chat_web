@@ -18,10 +18,8 @@ export const Chats = () => {
         borderRight: !isMobile ? 1 : 0,
         borderRightColor: theme.palette.divider,
         borderRightStyle: 'solid',
-        position: 'relative',
         minWidth: !isMobile ? styles.dimensions.profileDrawer.width : '100vw',
         maxWidth: styles.dimensions.profileDrawer.width,
-        height: '100vh',
       }}
     >
       {/* Toolbar */}
