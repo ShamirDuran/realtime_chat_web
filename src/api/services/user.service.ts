@@ -8,7 +8,9 @@ const api = new ApiAdapter()
 export class UserService {
   static async getById(id: string) {
     return await api.get<GetByIdResponse>(`/users/${id}`, {
-      headers: { ...headerToken },
+      headers: {
+        Authorization: headerToken(),
+      },
     })
   }
 
@@ -25,7 +27,9 @@ export class UserService {
         page,
         limit,
       },
-      headers: { ...headerToken },
+      headers: {
+        Authorization: headerToken(),
+      },
     })
   }
 }

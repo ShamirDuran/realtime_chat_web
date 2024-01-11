@@ -17,8 +17,6 @@ export const ActiveChat = () => {
   const { activeUserChat: contact } = useAppSelector(selectUiState)
 
   const retrieveContactData = () => {
-    console.log('executed')
-
     if (!contact) return
 
     UserService.getById(contact.uid)

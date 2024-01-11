@@ -35,6 +35,7 @@ export const DashboardLayout = () => {
   const clearAndExit = () => {
     dispatch(logout())
     dispatch(setIsLoading(false))
+    localStorage.removeItem('token')
     toast.warning('Session expired, please login again')
     return navigate('/auth/login')
   }
