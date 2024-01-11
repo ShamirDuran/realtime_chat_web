@@ -8,6 +8,9 @@ import { verifyToken } from '../../utils'
 import { LoadingPage } from '../../pages'
 import { toast } from 'sonner'
 import { Stack } from '@mui/material'
+import { connectSocket, socket } from '../../socket'
+import { useEffect } from 'react'
+import { setActiveChat } from '../../redux/slices/chat.slice'
 
 export const DashboardLayout = () => {
   const navigate = useNavigate()
@@ -40,9 +43,23 @@ export const DashboardLayout = () => {
     return navigate('/auth/login')
   }
 
-  if (token && !authState) {
+  if (token && !authState.isLoggedIn) {
     validateAuth()
   }
+
+  useEffect(() => {
+    if (!socket && authState.user.uid != '') {
+      connectSocket(authState.user.uid)
+    }
+
+    socket?.on('start_chat', (data) => {
+      dispatch(setActiveChat({ chat: data }))
+    })
+
+    return () => {
+      socket?.off('start_chat')
+    }
+  }, [authState.isLoggedIn, authState.user, socket])
 
   return (
     <>

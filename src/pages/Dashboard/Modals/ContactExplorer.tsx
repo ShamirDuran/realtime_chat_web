@@ -16,13 +16,11 @@ import { User } from '../../../api/models'
 import { UserService } from '../../../api/services'
 import { CircleAvatar, SearchBar, StyledModal } from '../../../components'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
-import {
-  selectUiState,
-  setActiveUserChat,
-  toggleContactExplorerModal,
-} from '../../../redux/slices/ui.slice'
+import { selectUiState, toggleContactExplorerModal } from '../../../redux/slices/ui.slice'
 import { upperCammelCase } from '../../../utils'
 import { debounce } from 'lodash'
+import { socket } from '../../../socket'
+import { selectAuthState } from '../../../redux/slices/auth.slice'
 
 interface ContactListProps {
   contacts: User[]
@@ -30,9 +28,10 @@ interface ContactListProps {
 
 const ContactList = ({ contacts }: ContactListProps) => {
   const dispatch = useAppDispatch()
+  const authState = useAppSelector(selectAuthState)
 
   const handleSendMessage = (user: User) => {
-    dispatch(setActiveUserChat({ user }))
+    socket.emit('start_chat', { to: user.uid, from: authState.user.uid })
     dispatch(toggleContactExplorerModal())
   }
 

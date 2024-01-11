@@ -40,7 +40,7 @@ export const Chats = () => {
           mt={0}
         >
           <Box>
-            {[1, 2, 3, 4, 5].map((_, index) => (
+            {[].map((_, index) => (
               <Chat key={index} />
             ))}
           </Box>
@@ -48,7 +48,7 @@ export const Chats = () => {
 
         <Section Icon={GroupsIcon} title='Group Message' color={styles.colors.purple}>
           <Box>
-            {[1, 2, 3, 4, 5].map((_, index) => (
+            {[].map((_, index) => (
               <Chat key={index} />
             ))}
           </Box>

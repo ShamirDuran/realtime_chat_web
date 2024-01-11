@@ -1,6 +1,6 @@
 import { Menu, MenuItem } from '@mui/material'
 import { useAppDispatch } from '../../../../hooks'
-import { setActiveUserChat } from '../../../../redux/slices/ui.slice'
+import { setActiveChat } from '../../../../redux/slices/chat.slice'
 
 interface Props {
   menuRef: null | HTMLElement
@@ -20,7 +20,7 @@ export const ChatMenu = ({ menuRef, isOpen, handleClose }: Props) => {
   }
 
   const handleCloseChat = () => {
-    dispatch(setActiveUserChat({ user: null }))
+    dispatch(setActiveChat({ chat: null }))
   }
 
   return (

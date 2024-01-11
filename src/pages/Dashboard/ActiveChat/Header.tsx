@@ -16,20 +16,20 @@ import {
   useResponsive,
   useStyles,
 } from '../../../hooks'
-import { selectUiState, setActiveUserChat } from '../../../redux/slices/ui.slice'
 import { upperCammelCase } from '../../../utils'
 import { ChatMenu } from './Menus/ChatMenu'
+import { selectActiveChatUser, setActiveChat } from '../../../redux/slices/chat.slice'
 
 export const Header = () => {
   const styles = useStyles()
-  const { activeUserChat } = useAppSelector(selectUiState)
   const [menuRef, isMenuOpen, handleOpenMenu, handleCloseMenu] = useMenu()
   const isMobile = useResponsive({ query: 'down', key: 'sm' })
   const isTabled = useResponsive({ query: 'down', key: 'lg' })
+  const user = useAppSelector(selectActiveChatUser)
   const dispatch = useAppDispatch()
 
   const handleCloseActiveChat = () => {
-    dispatch(setActiveUserChat({ user: null }))
+    dispatch(setActiveChat({ chat: null }))
   }
 
   return (
@@ -45,7 +45,7 @@ export const Header = () => {
           </TooltipIconbutton>
         )}
 
-        <CircleAvatar src={activeUserChat?.avatar ?? ''} />
+        <CircleAvatar src={user?.avatar ?? ''} />
 
         {/* User info */}
         <Stack
@@ -57,7 +57,7 @@ export const Header = () => {
           <TruncatedText
             fontWeight={styles.fonts.title.weight}
             textOverflow='ellipsis'
-            text={upperCammelCase(activeUserChat?.fullName ?? '')}
+            text={upperCammelCase(user?.fullName ?? '')}
           />
           <TruncatedText
             component='p'

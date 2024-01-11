@@ -1,18 +1,18 @@
 import { Stack } from '@mui/material'
+import { useAppSelector, useResponsive } from '../../hooks'
+import { selectChatState } from '../../redux/slices/chat.slice'
 import { ActiveChat } from './ActiveChat'
 import { Chats } from './Chats'
 import { ProfileDrawer } from './Drawers/ProfileDrawer'
 import { ContactExplorerModal } from './Modals/ContactExplorer'
-import { useAppSelector, useResponsive } from '../../hooks'
-import { selectUiState } from '../../redux/slices/ui.slice'
 import { NoActiveChat } from './NoActiveChat'
 
 const MobileLayout = () => {
-  const uiState = useAppSelector(selectUiState)
+  const { activeChat } = useAppSelector(selectChatState)
 
   return (
     <Stack direction='row' height='100%'>
-      {uiState.activeUserChat ? <ActiveChat /> : <Chats />}
+      {activeChat ? <ActiveChat /> : <Chats />}
 
       <ProfileDrawer />
       <ContactExplorerModal />
@@ -21,13 +21,13 @@ const MobileLayout = () => {
 }
 
 const DesktopLayout = () => {
-  const uiState = useAppSelector(selectUiState)
+  const { activeChat } = useAppSelector(selectChatState)
 
   return (
     <Stack direction='row' height='100%'>
       <Chats />
 
-      {uiState.activeUserChat ? <ActiveChat /> : <NoActiveChat />}
+      {activeChat ? <ActiveChat /> : <NoActiveChat />}
 
       <ProfileDrawer />
       <ContactExplorerModal />

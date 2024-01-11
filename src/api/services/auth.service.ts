@@ -1,3 +1,5 @@
+import { JWTDecoded } from '../../interfaces'
+import { verifyToken } from '../../utils'
 import { ApiAdapter } from '../adapter.api'
 import { LoginResponse, RegisterResponse, VerifyResponse } from '../responses'
 
@@ -13,7 +15,10 @@ export class AuthService {
     const data = { email, password }
     const resp = await api.post<LoginResponse>('auth/login', data)
 
+    const decoded = verifyToken<JWTDecoded>(resp.token)
+
     localStorage.setItem('token', resp.token)
+    decoded && localStorage.setItem('user_id', decoded.uid)
     return resp
   }
 
