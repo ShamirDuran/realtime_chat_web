@@ -1,8 +1,8 @@
-import { faker } from '@faker-js/faker'
 import AddIcon from '@mui/icons-material/Add'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
+import React from 'react'
 import {
   BadgeWrapper,
   CircleAvatar,
@@ -11,13 +11,14 @@ import {
   TruncatedText,
 } from '../../../components'
 import { useAppDispatch, useAppSelector, useMenu, useStyles } from '../../../hooks'
+import { selectAuthUser } from '../../../redux/slices/auth.slice'
 import {
   toggleContactExplorerModal,
   toggleProfileDrawer,
 } from '../../../redux/slices/ui.slice'
-import { MainMenu } from './Menus/MainMenu'
-import { selectAuthUser } from '../../../redux/slices/auth.slice'
+import { socket } from '../../../socket'
 import { upperCammelCase } from '../../../utils'
+import { MainMenu } from './Menus/MainMenu'
 
 export const Header = () => {
   const theme = useTheme()
@@ -25,6 +26,7 @@ export const Header = () => {
   const dispatch = useAppDispatch()
   const [menuRef, isMenuOpen, handleOpenMenu, handleCloseMenu] = useMenu()
   const user = useAppSelector(selectAuthUser)
+  const [socketConnected, setSocketConnected] = React.useState(false)
 
   const handleOpenProfileDrawer = () => {
     dispatch(toggleProfileDrawer())
@@ -45,6 +47,16 @@ export const Header = () => {
     }
   }
 
+  React.useEffect(() => {
+    socket?.on('connect', () => setSocketConnected(true))
+    socket?.on('disconnect', () => setSocketConnected(false))
+
+    return () => {
+      socket?.off('connect')
+      socket?.off('disconnect')
+    }
+  }, [socket])
+
   return (
     <StyledToolbar>
       <Stack direction='row' alignItems='center' flex={1}>
@@ -52,7 +64,14 @@ export const Header = () => {
           onClick={handleOpenProfileDrawer}
           sx={{ cursor: 'pointer', display: 'flex' }}
         >
-          <BadgeWrapper vertical='bottom' horizontal='right' ripple={true}>
+          <BadgeWrapper
+            bgcolor={
+              socketConnected ? theme.palette.success.main : theme.palette.error.main
+            }
+            vertical='bottom'
+            horizontal='right'
+            ripple={socketConnected}
+          >
             <CircleAvatar src={user?.avatar ?? ''} />
           </BadgeWrapper>
 

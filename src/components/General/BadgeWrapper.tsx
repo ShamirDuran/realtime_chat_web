@@ -13,8 +13,8 @@ const StyledBadgeWrapper = styled(
 )<StyledBadgeProps>(({ theme, bgcolor, size, useRipple, useShadow }) => ({
   '& .MuiBadge-badge': {
     backgroundColor: bgcolor ?? theme.palette.success.main,
-    color: bgcolor ?? theme.palette.success.main,
     boxShadow: useShadow ? `0 0 0 2px ${theme.palette.background.paper}` : 'none',
+    color: bgcolor ?? theme.palette.success.main,
     width: size,
     height: size,
     borderRadius: '50%',
@@ -43,6 +43,7 @@ const StyledBadgeWrapper = styled(
 }))
 
 export const BadgeWrapper = ({
+  hidden = false,
   vertical = 'top',
   horizontal = 'right',
   bgcolor,
@@ -52,6 +53,7 @@ export const BadgeWrapper = ({
   shadow = true,
   ...rest
 }: StyledBadgeProps & {
+  hidden?: boolean
   vertical?: 'top' | 'bottom'
   horizontal?: 'left' | 'right'
   children: JSX.Element
@@ -60,6 +62,8 @@ export const BadgeWrapper = ({
   size?: number
   shadow?: boolean
 }) => {
+  if (hidden) return <>{children}</>
+
   return (
     <StyledBadgeWrapper
       anchorOrigin={{

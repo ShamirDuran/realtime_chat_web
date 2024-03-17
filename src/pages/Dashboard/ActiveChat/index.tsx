@@ -1,19 +1,17 @@
 import { Box, Stack } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
-import { useStyles } from '../../../hooks'
+import React, { useEffect, useRef } from 'react'
+import { useAppSelector, useStyles } from '../../../hooks'
+import { selectChatState } from '../../../redux/slices/chat.slice'
 import { Header } from './Header'
 import { InputMessage } from './InputMessage'
 import { Message } from './Message'
-import fakeChat from './data'
 
 export const ActiveChat = () => {
   const styles = useStyles()
   const scrollRef: React.RefObject<HTMLDivElement> = useRef(null)
-  const [messages, setMessages] = useState<any>([])
+  const messages = useAppSelector(selectChatState).activeChat?.messages || []
 
-  useEffect(() => {
-    setMessages(fakeChat(0))
-
+  const scrollToEnd = () => {
     // weird trick to scroll to bottom on first render
     const scrollContainer = scrollRef.current
     if (scrollContainer) {
@@ -21,7 +19,11 @@ export const ActiveChat = () => {
         scrollContainer.scrollTop = scrollContainer.scrollHeight
       }, 100)
     }
-  }, [])
+  }
+
+  useEffect(() => {
+    scrollToEnd()
+  }, [messages])
 
   return (
     <Stack flexGrow={1}>
@@ -31,14 +33,13 @@ export const ActiveChat = () => {
         <Stack
           flexGrow={1}
           spacing={1.5}
-          direction={'column-reverse'}
           sx={{
             py: styles.margin.root.vertical,
             px: styles.margin.root.horizontal,
           }}
         >
-          {messages.map(({ id, message, time, from }: any) => (
-            <Message key={id} id={id} message={message} time={time} from={from} />
+          {messages.map((message) => (
+            <Message key={message.uid} message={message} />
           ))}
         </Stack>
       </Box>

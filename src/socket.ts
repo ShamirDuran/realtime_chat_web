@@ -5,8 +5,6 @@ import { io, Socket } from 'socket.io-client'
 let socket: Socket<DefaultEventsMap, DefaultEventsMap>
 
 const connectSocket = (uid: string) => {
-  console.log('User', uid, 'connected')
-
   socket = io('http://localhost:3001', {
     query: {
       uid,

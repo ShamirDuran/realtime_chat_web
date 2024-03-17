@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 import { Stack } from '@mui/material'
 import { connectSocket, socket } from '../../socket'
 import { useEffect } from 'react'
-import { setActiveChat } from '../../redux/slices/chat.slice'
+import { addMessage, setActiveChat } from '../../redux/slices/chat.slice'
 
 export const DashboardLayout = () => {
   const navigate = useNavigate()
@@ -35,6 +35,7 @@ export const DashboardLayout = () => {
       .catch(clearAndExit)
   }
 
+  /// Delete token from local storage and redirect to login
   const clearAndExit = () => {
     dispatch(logout())
     dispatch(setIsLoading(false))
@@ -47,6 +48,7 @@ export const DashboardLayout = () => {
     validateAuth()
   }
 
+  /// Connect to socket when user is logged in
   useEffect(() => {
     if (!socket && authState.user.uid != '') {
       connectSocket(authState.user.uid)
@@ -56,8 +58,14 @@ export const DashboardLayout = () => {
       dispatch(setActiveChat({ chat: data }))
     })
 
+    socket?.on('new_message', (data) => {
+      console.log('new message: ', data)
+      dispatch(addMessage(data))
+    })
+
     return () => {
       socket?.off('start_chat')
+      socket?.off('new_message')
     }
   }, [authState.isLoggedIn, authState.user, socket])
 

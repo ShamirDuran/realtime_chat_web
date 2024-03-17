@@ -75,7 +75,7 @@ export const RegisterForm = ({ handleError }: Props) => {
         <RHFTextField
           name='email'
           label='Email address'
-          type='email'
+          type='text'
           disabled={isLoading}
           fullWidth
         />
@@ -134,7 +134,7 @@ export const RegisterForm = ({ handleError }: Props) => {
           },
         }}
       >
-        Login
+        Register
       </LoadingButton>
     </FormProvider>
   )

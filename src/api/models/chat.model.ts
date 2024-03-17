@@ -4,7 +4,7 @@ import { User } from './user.model'
 export interface Chat {
   uid: string
   participants: Participant[]
-  lastMessage: Message
+  messages: Message[]
   createdAt: Date
   group: boolean
   groupInfo?: GroupInfo
