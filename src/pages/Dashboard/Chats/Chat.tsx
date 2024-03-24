@@ -1,17 +1,21 @@
 import { faker } from '@faker-js/faker'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
+import moment from 'moment'
+import { Chat as ChatModel } from '../../../api/models'
 import { CircleAvatar, CircleContainer, TruncatedText } from '../../../components'
 import { useStyles } from '../../../hooks'
-import moment from 'moment'
+import { upperCammelCase } from '../../../utils'
 
 interface Props {
   isActive?: boolean
+  data: ChatModel
 }
 
-export const Chat = ({ isActive = false }: Props) => {
+export const Chat = ({ data, isActive = false }: Props) => {
   const styles = useStyles()
   const theme = useTheme()
   const unreadMessageCount = faker.number.int({ min: 0, max: 2 })
+  const user = data.participants[0].user
 
   return (
     <Box
@@ -32,7 +36,7 @@ export const Chat = ({ isActive = false }: Props) => {
       }}
     >
       <Stack direction='row' alignItems='center'>
-        <CircleAvatar src={faker.image.avatarLegacy()} size={53} />
+        <CircleAvatar src={user.avatar} fullName={user.fullName} size={53} />
 
         <Stack ml={2} flex={1}>
           <Stack
@@ -40,12 +44,11 @@ export const Chat = ({ isActive = false }: Props) => {
             display='flex'
             justifyContent='space-between'
             alignItems='center'
-            flex={1}
           >
             <TruncatedText
               variant='subtitle1'
               fontWeight={styles.fonts.title.weight}
-              text={faker.person.fullName()}
+              text={upperCammelCase(user.fullName)}
             />
             <Typography variant='caption' color={isActive ? 'white' : 'text.secondary'}>
               {moment(faker.date.anytime()).format('hh:ss')}
@@ -57,7 +60,7 @@ export const Chat = ({ isActive = false }: Props) => {
               component='p'
               variant='body2'
               color='text.secondary'
-              text={faker.lorem.sentence() + faker.lorem.sentence()}
+              text={data.messages[0].content}
               mr={2}
             />
             {unreadMessageCount > 0 && (

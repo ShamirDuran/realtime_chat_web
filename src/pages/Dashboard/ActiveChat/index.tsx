@@ -32,6 +32,7 @@ export const ActiveChat = () => {
       <Box ref={scrollRef} flexGrow={1} bgcolor='background.paper' pb={1} overflow='auto'>
         <Stack
           flexGrow={1}
+          direction='column-reverse'
           spacing={1.5}
           sx={{
             py: styles.margin.root.vertical,

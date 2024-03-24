@@ -33,6 +33,7 @@ export const Section = React.memo(({ title, Icon, color, children, mt = 2 }: Pro
   return (
     <Stack alignItems='flex-start'>
       <Stack
+        flex={1}
         direction='row'
         className={classes.headerContainer}
         onClick={() => setIsVisible((prev) => !prev)}

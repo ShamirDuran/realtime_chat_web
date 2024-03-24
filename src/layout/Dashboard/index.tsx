@@ -55,6 +55,8 @@ export const DashboardLayout = () => {
     }
 
     socket?.on('start_chat', (data) => {
+      console.log(data)
+
       dispatch(setActiveChat({ chat: data }))
     })
 

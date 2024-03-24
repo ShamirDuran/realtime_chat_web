@@ -2,18 +2,34 @@ import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 import { Chat } from '../../api/models'
 
-interface UiState {
+const loggedUser = localStorage.getItem('user_id')
+
+interface ChatState {
   activeChat?: Chat
+  directChats: Chat[]
+  groupChats: Chat[]
 }
 
-const initialState: UiState = {
+const initialState: ChatState = {
   activeChat: undefined,
+  directChats: [],
+  groupChats: [],
 }
 
 export const chatSlice = createSlice({
   name: 'chat',
   initialState: initialState,
   reducers: {
+    setDirectChats: (state, action) => {
+      const chats = action.payload.chats.map((dc: Chat) => {
+        const user = dc.participants.find((p) => p.user.uid.toString() !== loggedUser)
+        dc.participants = user ? [user] : []
+
+        return dc
+      })
+
+      state.directChats = chats
+    },
     setActiveChat: (state, action) => {
       state.activeChat = action.payload.chat
     },
@@ -31,7 +47,7 @@ export const chatSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setActiveChat, addMessage } = chatSlice.actions
+export const { setDirectChats, setActiveChat, addMessage } = chatSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
