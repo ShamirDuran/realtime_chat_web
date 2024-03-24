@@ -23,7 +23,7 @@ export const Chats = () => {
   useEffect(() => {
     if (!socket) return
 
-    socket.emit('get_all_chats', { uid: authState.user.uid }, (data: ChatModel[]) => {
+    socket.emit('get_direct_chats', { uid: authState.user.uid }, (data: ChatModel[]) => {
       dispatch(setDirectChats({ chats: data }))
     })
   }, [socket])
