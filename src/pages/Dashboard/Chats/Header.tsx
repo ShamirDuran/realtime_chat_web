@@ -72,7 +72,7 @@ export const Header = () => {
             horizontal='right'
             ripple={socketConnected}
           >
-            <CircleAvatar src={user?.avatar ?? ''} />
+            <CircleAvatar src={user?.avatar ?? ''} fullName={user?.fullName} />
           </BadgeWrapper>
 
           {/* User info */}

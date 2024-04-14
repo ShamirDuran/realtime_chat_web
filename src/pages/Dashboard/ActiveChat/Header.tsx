@@ -45,7 +45,7 @@ export const Header = () => {
           </TooltipIconbutton>
         )}
 
-        <CircleAvatar src={user?.avatar ?? ''} />
+        <CircleAvatar src={user?.avatar ?? ''} fullName={user?.fullName} />
 
         {/* User info */}
         <Stack

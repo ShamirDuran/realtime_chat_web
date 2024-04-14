@@ -1,21 +1,52 @@
 import { faker } from '@faker-js/faker'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
 import moment from 'moment'
+import { useEffect, useState } from 'react'
 import { Chat as ChatModel } from '../../../api/models'
 import { CircleAvatar, CircleContainer, TruncatedText } from '../../../components'
-import { useStyles } from '../../../hooks'
+import { useAppSelector, useStyles } from '../../../hooks'
 import { upperCammelCase } from '../../../utils'
+import { selectActiveChat } from '../../../redux/slices/chat.slice'
+import { socket } from '../../../socket'
+import { selectAuthState } from '../../../redux/slices/auth.slice'
 
 interface Props {
-  isActive?: boolean
   data: ChatModel
 }
 
-export const Chat = ({ data, isActive = false }: Props) => {
+/// Component which represent a direct chat between users
+export const Chat = ({ data }: Props) => {
   const styles = useStyles()
   const theme = useTheme()
+
+  const [isActive, setIsActive] = useState(false)
+  const activeChat = useAppSelector(selectActiveChat)
   const unreadMessageCount = faker.number.int({ min: 0, max: 2 })
   const user = data.participants[0].user
+  const authState = useAppSelector(selectAuthState)
+
+  const handleLastMessageString = () => {
+    const lastMessageDate = moment(data.messages[0].createdAt)
+    const lastMessageTime = moment(data.messages[0].createdAt).format('HH:mm')
+    const yesterdayDate = moment().clone().subtract(1, 'day')
+    const morningFlag = moment('12:00:00', 'HH:mm')
+
+    if (lastMessageDate.isSame(yesterdayDate, 'day')) return 'Yesterday'
+
+    if (!lastMessageDate.isSame(moment(), 'day'))
+      return lastMessageDate.format('DD/MM/YYYY')
+
+    const isMorning = moment(lastMessageTime, 'HH:mm').isBefore(morningFlag)!!
+    return `${lastMessageTime} ${isMorning ? 'a. m.' : 'p. m.'} `
+  }
+
+  const handleClick = () => {
+    socket.emit('start_chat', { to: user.uid, from: authState.user.uid })
+  }
+
+  useEffect(() => {
+    setIsActive(activeChat?.uid === data.uid)
+  }, [activeChat])
 
   return (
     <Box
@@ -34,6 +65,7 @@ export const Chat = ({ data, isActive = false }: Props) => {
           cursor: 'pointer',
         },
       }}
+      onClick={handleClick}
     >
       <Stack direction='row' alignItems='center'>
         <CircleAvatar src={user.avatar} fullName={user.fullName} size={53} />
@@ -51,7 +83,7 @@ export const Chat = ({ data, isActive = false }: Props) => {
               text={upperCammelCase(user.fullName)}
             />
             <Typography variant='caption' color={isActive ? 'white' : 'text.secondary'}>
-              {moment(faker.date.anytime()).format('hh:ss')}
+              {handleLastMessageString()}
             </Typography>
           </Stack>
 
@@ -59,7 +91,7 @@ export const Chat = ({ data, isActive = false }: Props) => {
             <TruncatedText
               component='p'
               variant='body2'
-              color='text.secondary'
+              color={isActive ? 'inherit' : 'text.secondary'}
               text={data.messages[0].content}
               mr={2}
             />

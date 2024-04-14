@@ -21,6 +21,7 @@ export const chatSlice = createSlice({
   initialState: initialState,
   reducers: {
     setDirectChats: (state, action) => {
+      // Remove logged user from participants
       const chats = action.payload.chats.map((dc: Chat) => {
         const user = dc.participants.find((p) => p.user.uid.toString() !== loggedUser)
         dc.participants = user ? [user] : []
@@ -53,6 +54,7 @@ export const { setDirectChats, setActiveChat, addMessage } = chatSlice.actions
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
 export const selectChatState = (state: RootState) => state.chat
+export const selectActiveChat = (state: RootState) => state.chat.activeChat
 
 /// Return the user whom the current user is chatting with
 export const selectActiveChatUser = (state: RootState) => {

@@ -32,6 +32,7 @@ const generateBackground = (name: string) => {
   return color
 }
 
+/// TODO: Add user icon as default when can't get fullName
 export const CircleAvatar = ({ src, fullName = '', size = 46, ...rest }: Props) => {
   return (
     <Avatar
@@ -39,8 +40,10 @@ export const CircleAvatar = ({ src, fullName = '', size = 46, ...rest }: Props) 
       sx={{
         borderWidth: 1,
         borderColor: 'grey.300',
-        backgroundColor: generateBackground(fullName),
+        backgroundColor: fullName ? generateBackground(fullName) : 'grey.300',
         borderStyle: 'solid',
+        fontWeight: '500',
+        letterSpacing: 1.2,
         width: size,
         height: size,
       }}
