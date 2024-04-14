@@ -17,7 +17,7 @@ export const ActiveChat = () => {
     if (scrollContainer) {
       setTimeout(() => {
         scrollContainer.scrollTop = scrollContainer.scrollHeight
-      }, 100)
+      }, 0)
     }
   }
 

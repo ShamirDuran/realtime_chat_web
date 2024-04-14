@@ -69,7 +69,7 @@ const ContactList = ({ contacts }: ContactListProps) => {
             }
           >
             <ListItemAvatar>
-              <CircleAvatar src={user.avatar ?? ''} />
+              <CircleAvatar src={user.avatar ?? ''} fullName={user.fullName} />
             </ListItemAvatar>
 
             <ListItemText>

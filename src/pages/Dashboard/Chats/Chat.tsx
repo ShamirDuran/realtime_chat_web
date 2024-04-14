@@ -4,11 +4,9 @@ import moment from 'moment'
 import { useEffect, useState } from 'react'
 import { Chat as ChatModel } from '../../../api/models'
 import { CircleAvatar, CircleContainer, TruncatedText } from '../../../components'
-import { useAppSelector, useStyles } from '../../../hooks'
+import { useAppDispatch, useAppSelector, useStyles } from '../../../hooks'
+import { selectActiveChat, setActiveChat } from '../../../redux/slices/chat.slice'
 import { upperCammelCase } from '../../../utils'
-import { selectActiveChat } from '../../../redux/slices/chat.slice'
-import { socket } from '../../../socket'
-import { selectAuthState } from '../../../redux/slices/auth.slice'
 
 interface Props {
   data: ChatModel
@@ -18,12 +16,12 @@ interface Props {
 export const Chat = ({ data }: Props) => {
   const styles = useStyles()
   const theme = useTheme()
+  const dispatch = useAppDispatch()
 
   const [isActive, setIsActive] = useState(false)
   const activeChat = useAppSelector(selectActiveChat)
   const unreadMessageCount = faker.number.int({ min: 0, max: 2 })
   const user = data.participants[0].user
-  const authState = useAppSelector(selectAuthState)
 
   const handleLastMessageString = () => {
     const lastMessageDate = moment(data.messages[0].createdAt)
@@ -41,7 +39,7 @@ export const Chat = ({ data }: Props) => {
   }
 
   const handleClick = () => {
-    socket.emit('start_chat', { to: user.uid, from: authState.user.uid })
+    dispatch(setActiveChat({ chat: data }))
   }
 
   useEffect(() => {
