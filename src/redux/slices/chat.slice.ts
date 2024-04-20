@@ -37,12 +37,15 @@ export const chatSlice = createSlice({
     addMessage: (state, action) => {
       const { chat, message } = action.payload
 
-      console.log('validating new message: ', chat, state.activeChat?.uid)
+      const chatIndex = state.directChats.findIndex((dc) => dc.uid === chat)
+      if (chatIndex !== -1) {
+        state.directChats[chatIndex].messages.unshift(message)
+      }
 
       if (!state.activeChat) return
       if (state.activeChat.uid !== chat) return
 
-      state.activeChat.messages.push(message)
+      state.activeChat.messages.unshift(message)
     },
   },
 })
