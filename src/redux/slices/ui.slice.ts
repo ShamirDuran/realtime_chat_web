@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store'
-import { Chat, User } from '../../api/models'
 
+// TODO: replace isLoading from slice with their own state or context
 interface UiState {
   openProfileDrawer: boolean
   openContactExplorerModal: boolean
   isLoading: boolean
+  isLoadingChats?: boolean
   isMobile?: boolean
 }
 
@@ -13,6 +14,7 @@ const initialState: UiState = {
   openProfileDrawer: false,
   openContactExplorerModal: false,
   isLoading: false,
+  isLoadingChats: false,
 }
 
 export const uiSlice = createSlice({
@@ -28,12 +30,19 @@ export const uiSlice = createSlice({
     setIsLoading: (state, action) => {
       state.isLoading = action.payload
     },
+    setIsLoadingChats: (state, action) => {
+      state.isLoadingChats = action.payload
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { toggleProfileDrawer, toggleContactExplorerModal, setIsLoading } =
-  uiSlice.actions
+export const {
+  toggleProfileDrawer,
+  toggleContactExplorerModal,
+  setIsLoading,
+  setIsLoadingChats,
+} = uiSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

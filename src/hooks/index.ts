@@ -1,5 +1,6 @@
 export * from './useAppDispatch'
 export * from './useAppSelector'
+export * from './useDebouncer'
 export * from './useForm'
 export * from './useMenu'
 export * from './useResponsive'
