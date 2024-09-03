@@ -1,6 +1,6 @@
 import { jwtDecode, JwtPayload } from 'jwt-decode'
 
-/// Verify if token is valid and if not then return decoded token
+/// Verify if token is valid and if not return decoded token
 export const verifyToken = <T extends JwtPayload>(token: string): T | false => {
   const decoded = jwtDecode<T>(token)
 

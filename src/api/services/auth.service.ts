@@ -18,11 +18,25 @@ export class AuthService {
   }
 
   static async verifyAccount(token: string) {
-    return await api.get<VerifyResponse>(`auth/verify-account/${token}`)
+    return await api.get<VerifyResponse>(`auth/verify_account/${token}`)
+  }
+
+  static async forgotPassword(email: string) {
+    return await api.post('auth/forgot_password', { email })
+  }
+
+  static async passwordReset(token: string, password: string) {
+    const data = { password }
+
+    return await api.post('auth/password_reset', data, {
+      headers: {
+        Authorization: token,
+      },
+    })
   }
 
   static async renewToken(token: string) {
-    return await api.post<LoginResponse>('auth/renew-token', null, {
+    return await api.post<LoginResponse>('auth/renew_token', null, {
       headers: {
         Authorization: token,
       },

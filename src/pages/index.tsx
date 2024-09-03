@@ -1,4 +1,5 @@
 export * from './Auth/Login'
+export * from './Auth/PasswordReset'
 export * from './Auth/Register'
 export * from './Auth/Verification'
 export * from './Dashboard'

@@ -87,7 +87,7 @@ export const LoginForm = ({ handleError }: Props) => {
       <Stack alignItems='flex-end' sx={{ my: 2 }}>
         <Link
           component={RouterLink}
-          to='/auth/reset-password'
+          to='/auth/password_reset'
           variant='body2'
           color='inherit'
           underline='always'

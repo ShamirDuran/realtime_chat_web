@@ -1,5 +1,13 @@
 import { LoaderFunctionArgs, createBrowserRouter, redirect } from 'react-router-dom'
-import { DashboardPage, LoginPage, NotFound, RegisterPage, VerifyAccount } from '../pages'
+import {
+  DashboardPage,
+  ForgotPassword,
+  LoginPage,
+  NotFound,
+  PasswordReset,
+  RegisterPage,
+  VerifyAccount,
+} from '../pages'
 import { DashboardLayout } from '../layout'
 
 const router = createBrowserRouter([
@@ -21,7 +29,17 @@ const router = createBrowserRouter([
         Component: RegisterPage,
       },
       {
-        path: 'verify-account/:token',
+        path: 'password_reset',
+        loader: isLoggedLoader,
+        Component: ForgotPassword,
+      },
+      {
+        path: 'password_reset/:token',
+        loader: isLoggedLoader,
+        Component: PasswordReset,
+      },
+      {
+        path: 'verify_account/:token',
         Component: VerifyAccount,
       },
     ],
