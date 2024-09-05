@@ -1,11 +1,11 @@
 import { Box, Stack, Typography, styled } from '@mui/material'
 import moment from 'moment'
+import { Message as MessageData } from '../../../api/models'
+import { useAppSelector } from '../../../hooks'
+import { selectAuthUser } from '../../../redux/slices/auth.slice'
 
 interface Props {
-  id: string | number
-  message: string
-  time: Date
-  from: string
+  message: MessageData
 }
 
 interface ContainerProps {
@@ -44,10 +44,13 @@ const Time = styled(Typography)<TimeProps>(({ theme, ...props }) => ({
   position: 'relative',
 }))
 
-export const Message = ({ id, message, time, from }: Props) => {
+export const Message = ({ message }: Props) => {
+  const { content, from, createdAt } = message
+  const loggedUser = useAppSelector(selectAuthUser)
+
   return (
     <Container
-      direction={from === 'me' ? 'right' : 'left'}
+      direction={from.uid == loggedUser.uid ? 'right' : 'left'}
       sx={{
         maxWidth: {
           xs: '90%',
@@ -59,10 +62,14 @@ export const Message = ({ id, message, time, from }: Props) => {
     >
       <Stack direction='row'>
         <Typography variant='body2' lineHeight='20px'>
-          {message}
+          {content}
         </Typography>
-        <Time color={from === 'me' ? 'white' : 'text.secondary'} variant='caption'>
-          {moment(time).format('hh:ss')}
+
+        <Time
+          color={from.uid == loggedUser.uid ? 'white' : 'text.secondary'}
+          variant='caption'
+        >
+          {moment(createdAt).format('hh:ss')}
         </Time>
       </Stack>
     </Container>

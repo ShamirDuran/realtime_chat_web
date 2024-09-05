@@ -1,20 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store'
-import { User } from '../../api/models'
 
+// TODO: replace isLoading from slice with their own state or context
 interface UiState {
   openProfileDrawer: boolean
   openContactExplorerModal: boolean
-  activeUserChat?: User
   isLoading: boolean
+  isLoadingChats?: boolean
   isMobile?: boolean
 }
 
 const initialState: UiState = {
   openProfileDrawer: false,
   openContactExplorerModal: false,
-  activeUserChat: undefined,
   isLoading: false,
+  isLoadingChats: false,
 }
 
 export const uiSlice = createSlice({
@@ -27,11 +27,11 @@ export const uiSlice = createSlice({
     toggleContactExplorerModal: (state) => {
       state.openContactExplorerModal = !state.openContactExplorerModal
     },
-    setActiveUserChat: (state, action) => {
-      state.activeUserChat = action.payload.user
-    },
     setIsLoading: (state, action) => {
       state.isLoading = action.payload
+    },
+    setIsLoadingChats: (state, action) => {
+      state.isLoadingChats = action.payload
     },
   },
 })
@@ -40,8 +40,8 @@ export const uiSlice = createSlice({
 export const {
   toggleProfileDrawer,
   toggleContactExplorerModal,
-  setActiveUserChat,
   setIsLoading,
+  setIsLoadingChats,
 } = uiSlice.actions
 
 // The function below is called a selector and allows us to select a value from

@@ -2,6 +2,7 @@ import { Box, Stack, Typography } from '@mui/material'
 import { useEffect, useRef } from 'react'
 import lottie from 'lottie-web'
 
+/// Used when there is no active chat. it show a lottie animation and a message
 export const NoActiveChat = () => {
   const animationRef = useRef<any>(null)
 

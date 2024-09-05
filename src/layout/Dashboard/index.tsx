@@ -8,6 +8,9 @@ import { verifyToken } from '../../utils'
 import { LoadingPage } from '../../pages'
 import { toast } from 'sonner'
 import { Stack } from '@mui/material'
+import { connectSocket, socket } from '../../socket'
+import { useEffect } from 'react'
+import { addMessage, setActiveChat } from '../../redux/slices/chat.slice'
 
 export const DashboardLayout = () => {
   const navigate = useNavigate()
@@ -32,6 +35,7 @@ export const DashboardLayout = () => {
       .catch(clearAndExit)
   }
 
+  /// Delete token from local storage and redirect to login
   const clearAndExit = () => {
     dispatch(logout())
     dispatch(setIsLoading(false))
@@ -40,9 +44,30 @@ export const DashboardLayout = () => {
     return navigate('/auth/login')
   }
 
-  if (token && !authState) {
+  if (token && !authState.isLoggedIn) {
     validateAuth()
   }
+
+  /// Connect to socket when user is logged in
+  useEffect(() => {
+    if (!socket && authState.user.uid != '') {
+      connectSocket(authState.user.uid)
+    }
+
+    socket?.on('start_chat', (data) => {
+      dispatch(setActiveChat({ chat: data }))
+    })
+
+    socket?.on('new_message', (data) => {
+      console.log('new message: ', data)
+      dispatch(addMessage(data))
+    })
+
+    return () => {
+      socket?.off('start_chat')
+      socket?.off('new_message')
+    }
+  }, [authState.isLoggedIn, authState.user, socket])
 
   return (
     <>

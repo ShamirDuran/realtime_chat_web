@@ -15,14 +15,12 @@ import { toast } from 'sonner'
 import { User } from '../../../api/models'
 import { UserService } from '../../../api/services'
 import { CircleAvatar, SearchBar, StyledModal } from '../../../components'
-import { useAppDispatch, useAppSelector } from '../../../hooks'
-import {
-  selectUiState,
-  setActiveUserChat,
-  toggleContactExplorerModal,
-} from '../../../redux/slices/ui.slice'
+import { useAppDispatch, useAppSelector, useDebouncer } from '../../../hooks'
+import { selectUiState, toggleContactExplorerModal } from '../../../redux/slices/ui.slice'
 import { upperCammelCase } from '../../../utils'
 import { debounce } from 'lodash'
+import { socket } from '../../../socket'
+import { selectAuthState } from '../../../redux/slices/auth.slice'
 
 interface ContactListProps {
   contacts: User[]
@@ -30,9 +28,10 @@ interface ContactListProps {
 
 const ContactList = ({ contacts }: ContactListProps) => {
   const dispatch = useAppDispatch()
+  const authState = useAppSelector(selectAuthState)
 
   const handleSendMessage = (user: User) => {
-    dispatch(setActiveUserChat({ user }))
+    socket.emit('start_chat', { to: user.uid, from: authState.user.uid })
     dispatch(toggleContactExplorerModal())
   }
 
@@ -70,7 +69,7 @@ const ContactList = ({ contacts }: ContactListProps) => {
             }
           >
             <ListItemAvatar>
-              <CircleAvatar src={user.avatar ?? ''} />
+              <CircleAvatar src={user.avatar ?? ''} fullName={user.fullName} />
             </ListItemAvatar>
 
             <ListItemText>
@@ -91,7 +90,7 @@ export const ContactExplorerModal = () => {
 
   const handleClose = () => dispatch(toggleContactExplorerModal())
 
-  const handleFetchContacts = async (name?: string) => {
+  const handleFetchContacts = (name?: string) => {
     setIsLoading(true)
 
     UserService.getAll(name)
@@ -100,24 +99,7 @@ export const ContactExplorerModal = () => {
       .finally(() => setIsLoading(false))
   }
 
-  const debouncedSearch = useRef(
-    debounce(async (criteria) => {
-      handleFetchContacts(criteria)
-    }, 300),
-  ).current
-
-  // debounce cleanup
-  useEffect(() => {
-    return () => debouncedSearch.cancel()
-  }, [debouncedSearch])
-
-  // component cleanup
-  useEffect(() => {
-    return () => {
-      setContacts([])
-      setIsLoading(true)
-    }
-  }, [open])
+  const debouncedSearch = useDebouncer(handleFetchContacts)
 
   return (
     <StyledModal

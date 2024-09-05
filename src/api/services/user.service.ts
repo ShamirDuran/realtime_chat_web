@@ -6,6 +6,11 @@ import { GetAllResponse } from '../responses/user/getAll.response'
 const api = new ApiAdapter()
 
 export class UserService {
+  /**
+   * Retrieve a user by id
+   * @param id User id
+   * @returns User
+   */
   static async getById(id: string) {
     return await api.get<GetByIdResponse>(`/users/${id}`, {
       headers: {
@@ -14,6 +19,14 @@ export class UserService {
     })
   }
 
+  /**
+   * Retrieve all users
+   * @param name Filter by name
+   * @param onlyEnabled Filter only enabled users
+   * @param page
+   * @param limit
+   * @returns User[]
+   */
   static async getAll(
     name?: string,
     onlyEnabled: boolean = true,
