@@ -39,6 +39,7 @@ export const chatSlice = createSlice({
 
       const chatIndex = state.directChats.findIndex((dc) => dc.uid === chat)
       if (chatIndex !== -1) {
+        // Add message into chat messages head (top) to show the latest message first in the chat list
         state.directChats[chatIndex].messages.unshift(message)
       }
 

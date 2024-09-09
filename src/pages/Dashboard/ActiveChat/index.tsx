@@ -33,7 +33,7 @@ export const ActiveChat = () => {
         <Stack
           flexGrow={1}
           direction='column-reverse'
-          spacing={1.5}
+          spacing={1}
           sx={{
             py: styles.margin.root.vertical,
             px: styles.margin.root.horizontal,

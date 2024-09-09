@@ -56,7 +56,7 @@ export const Chats = () => {
       <SearchBar
         mx={styles.margin.root.horizontal}
         my={isMobile ? 1.5 : 2.3}
-        handleSearch={handleSearch}
+        handleSearch={debouncedSearch}
       />
 
       {/* Chats */}
