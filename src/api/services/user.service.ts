@@ -1,6 +1,6 @@
 import { ApiAdapter } from '../adapter.api'
 import { headerToken } from '../config.api'
-import { GetByIdResponse } from '../responses'
+import { BaseResponse, GetByIdResponse } from '../responses'
 import { GetAllResponse } from '../responses/user/getAll.response'
 
 const api = new ApiAdapter()
@@ -44,5 +44,29 @@ export class UserService {
         Authorization: headerToken(),
       },
     })
+  }
+
+  static async updateName(name: string) {
+    return await api.put<BaseResponse>(
+      '/users/update/name',
+      { name },
+      {
+        headers: {
+          Authorization: headerToken(),
+        },
+      },
+    )
+  }
+
+  static async updateDescription(description: string) {
+    return await api.put<BaseResponse>(
+      '/users/update/about',
+      { description },
+      {
+        headers: {
+          Authorization: headerToken(),
+        },
+      },
+    )
   }
 }

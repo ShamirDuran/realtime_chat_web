@@ -59,7 +59,7 @@ export const PasswordReset = () => {
     setIsLoading(true)
 
     AuthService.passwordReset(token, data.password)
-      .then((resp: any) => {
+      .then((resp) => {
         toast.success(resp.msg)
         navigate('/auth/login')
       })

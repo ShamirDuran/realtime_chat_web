@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup'
 import CameraAltIcon from '@mui/icons-material/CameraAlt'
 import CheckIcon from '@mui/icons-material/Check'
 import EditIcon from '@mui/icons-material/Edit'
@@ -5,16 +6,24 @@ import {
   Avatar,
   Box,
   FormControl,
-  Input,
   InputAdornment,
   Stack,
   Typography,
 } from '@mui/material'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
-import { useAppSelector, useForm, useStyles } from '../../../hooks'
-import { selectAuthUser } from '../../../redux/slices/auth.slice'
+import * as Yup from 'yup'
+import { FormProvider, RHFTextField } from '../../../components'
+import { useAppSelector, useStyles } from '../../../hooks'
+import {
+  selectAuthUser,
+  setUserDescription,
+  setUserName,
+} from '../../../redux/slices/auth.slice'
 import { upperCammelCase } from '../../../utils'
+import { UserService } from '../../../api/services'
+import { useDispatch } from 'react-redux'
 
 const avatarSize = 200
 
@@ -66,11 +75,56 @@ export const ProfileDrawerBody = () => {
   const [editingDescription, setEditingDescription] = useState(false)
   const [isHovered, setHovered] = useState(false)
   const user = useAppSelector(selectAuthUser)
+  const dispatch = useDispatch()
 
-  const [formValues, handleChange] = useForm({
-    name: upperCammelCase(user.fullName),
-    description: user?.about ?? '',
+  const FormSchema = Yup.object({
+    name: Yup.string()
+      .min(3, 'Name must be at least 3 characters')
+      .max(15, 'Name must be less than 15 characters')
+      .required('Name is required'),
+    description: Yup.string().max(100, 'Description must be less than 100 characters'),
   })
+
+  const methods = useForm({
+    resolver: yupResolver(FormSchema),
+    defaultValues: {
+      name: upperCammelCase(user.fullName),
+      description: user?.about ?? '',
+    },
+  })
+
+  const {
+    watch,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+  } = methods
+
+  const onSubmit = handleSubmit((data) => {})
+
+  const onSubmitName = async () => {
+    const validName = await trigger('name')
+    if (!validName) return
+
+    setEditingName(!editingName)
+
+    if (watch('name') !== user.fullName) {
+      dispatch(setUserName(watch('name')))
+      UserService.updateName(watch('name'))
+    }
+  }
+
+  const onSubmitDescription = async () => {
+    const validDescription = await trigger('description')
+    if (!validDescription) return
+
+    setEditingDescription(!editingDescription)
+
+    if (watch('description') !== user.about) {
+      dispatch(setUserDescription(watch('description')))
+      UserService.updateDescription(watch('description') || '')
+    }
+  }
 
   return (
     <ContentWrapper>
@@ -105,48 +159,61 @@ export const ProfileDrawerBody = () => {
         )}
       </Stack>
 
-      <FormControl sx={{ mb: 4 }} disabled={!editingName} fullWidth>
-        <Label>Your name</Label>
+      <FormProvider methods={methods} onSubmit={onSubmit}>
+        <FormControl sx={{ mb: 4 }} disabled={!editingName} fullWidth>
+          <Label>Your name</Label>
+          <RHFTextField
+            name='name'
+            type='text'
+            placeholder='Add your name'
+            slotProps={{
+              input: {
+                maxRows: 1,
+                disabled: !editingName,
+                disableUnderline: !editingName,
+                inputProps: {
+                  maxLength: 15,
+                },
+                endAdornment: (
+                  <DynamicAdortments isEditing={editingName} onClick={onSubmitName} />
+                ),
+              },
+            }}
+            variant='standard'
+            autoComplete='off'
+            autoCorrect='off'
+          />
+        </FormControl>
 
-        <Input
-          name='name'
-          type='text'
-          value={formValues.name}
-          onChange={handleChange}
-          maxRows={1}
-          disableUnderline={!editingName}
-          endAdornment={
-            <DynamicAdortments
-              isEditing={editingName}
-              onClick={() => setEditingName(!editingName)}
-            />
-          }
-          inputProps={{
-            maxLength: 15,
-          }}
-        />
-      </FormControl>
-
-      <FormControl disabled={!editingDescription} fullWidth>
-        <Label>Your description</Label>
-        <Input
-          name='description'
-          type='text'
-          value={formValues.description}
-          onChange={handleChange}
-          disableUnderline={!editingDescription}
-          placeholder='Add a description'
-          endAdornment={
-            <DynamicAdortments
-              isEditing={editingDescription}
-              onClick={() => setEditingDescription(!editingDescription)}
-            />
-          }
-          inputProps={{
-            maxLength: 100,
-          }}
-        />
-      </FormControl>
+        <FormControl disabled={!editingDescription} fullWidth>
+          <Label>Your description</Label>
+          <RHFTextField
+            name='description'
+            type='text'
+            placeholder='Add a description'
+            slotProps={{
+              input: {
+                maxRows: 3,
+                disabled: !editingDescription,
+                disableUnderline: !editingDescription,
+                inputProps: {
+                  maxLength: 100,
+                },
+                endAdornment: (
+                  <DynamicAdortments
+                    isEditing={editingDescription}
+                    onClick={onSubmitDescription}
+                  />
+                ),
+              },
+            }}
+            multiline
+            variant='standard'
+            autoComplete='off'
+            autoCorrect='off'
+          />
+        </FormControl>
+      </FormProvider>
     </ContentWrapper>
   )
 }

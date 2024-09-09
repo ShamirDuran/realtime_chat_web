@@ -34,11 +34,17 @@ export const authSlice = createSlice({
       localStorage.removeItem('token')
       localStorage.removeItem('user_id')
     },
+    setUserName: (state, action) => {
+      state.user.fullName = action.payload
+    },
+    setUserDescription: (state, action) => {
+      state.user.about = action.payload
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { login, logout } = authSlice.actions
+export const { login, logout, setUserName, setUserDescription } = authSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

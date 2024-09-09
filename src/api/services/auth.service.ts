@@ -1,7 +1,12 @@
 import { JWTDecoded } from '../../interfaces'
 import { verifyToken } from '../../utils'
 import { ApiAdapter } from '../adapter.api'
-import { LoginResponse, RegisterResponse, VerifyResponse } from '../responses'
+import {
+  BaseResponse,
+  LoginResponse,
+  RegisterResponse,
+  VerifyResponse,
+} from '../responses'
 
 const api = new ApiAdapter()
 
@@ -26,14 +31,16 @@ export class AuthService {
     return await api.get<VerifyResponse>(`auth/verify_account/${token}`)
   }
 
+  /// Request a password reset email
   static async forgotPassword(email: string) {
-    return await api.post('auth/forgot_password', { email })
+    return await api.post<BaseResponse>('auth/forgot_password', { email })
   }
 
+  /// Reset the password
   static async passwordReset(token: string, password: string) {
     const data = { password }
 
-    return await api.post('auth/password_reset', data, {
+    return await api.post<BaseResponse>('auth/password_reset', data, {
       headers: {
         Authorization: token,
       },

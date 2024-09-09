@@ -84,14 +84,16 @@ export const RegisterForm = ({ handleError }: Props) => {
           name='password'
           label='Password'
           type={showPassword ? 'text' : 'password'}
-          InputProps={{
-            endAdornment: watch('password') && (
-              <InputAdornment position='end'>
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge='end'>
-                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                </IconButton>
-              </InputAdornment>
-            ),
+          slotProps={{
+            input: {
+              endAdornment: watch('password') && (
+                <InputAdornment position='end'>
+                  <IconButton onClick={() => setShowPassword(!showPassword)} edge='end'>
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
           }}
           disabled={isLoading}
           fullWidth
@@ -101,14 +103,16 @@ export const RegisterForm = ({ handleError }: Props) => {
           name='passwordConfirmation'
           label='Confirm password'
           type={showPassword ? 'text' : 'password'}
-          InputProps={{
-            endAdornment: watch('passwordConfirmation') && (
-              <InputAdornment position='end'>
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge='end'>
-                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                </IconButton>
-              </InputAdornment>
-            ),
+          slotProps={{
+            input: {
+              endAdornment: watch('passwordConfirmation') && (
+                <InputAdornment position='end'>
+                  <IconButton onClick={() => setShowPassword(!showPassword)} edge='end'>
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
           }}
           disabled={isLoading}
           fullWidth
