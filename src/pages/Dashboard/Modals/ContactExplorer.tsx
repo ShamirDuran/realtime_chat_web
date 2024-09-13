@@ -10,7 +10,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'sonner'
 import { User } from '../../../api/models'
 import { UserService } from '../../../api/services'
@@ -88,7 +88,9 @@ export const ContactExplorerModal = () => {
   const { openContactExplorerModal: open } = useAppSelector(selectUiState)
   const dispatch = useAppDispatch()
 
-  const handleClose = () => dispatch(toggleContactExplorerModal())
+  const handleClose = () => {
+    dispatch(toggleContactExplorerModal())
+  }
 
   const handleFetchContacts = (name?: string) => {
     setIsLoading(true)

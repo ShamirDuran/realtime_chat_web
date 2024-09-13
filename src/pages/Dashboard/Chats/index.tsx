@@ -13,7 +13,7 @@ import { selectAuthState } from '../../../redux/slices/auth.slice'
 import { setDirectChats } from '../../../redux/slices/chat.slice'
 import { socket } from '../../../socket'
 import { Header } from './Header'
-import { setIsLoadingChats } from '../../../redux/slices/ui.slice'
+import { setIsLoadingChats, setSearchValue } from '../../../redux/slices/ui.slice'
 import { RegularList } from './RegularList'
 import { FilteredList } from './FilteredList'
 
@@ -28,6 +28,7 @@ export const Chats = () => {
   const handleSearch = (searchTerm: string) => {
     setIsFilteringChats(searchTerm !== '')
     dispatch(setIsLoadingChats({ isLoading: true }))
+    dispatch(setSearchValue(searchTerm))
   }
 
   const debouncedSearch = useDebouncer(handleSearch)

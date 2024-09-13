@@ -69,21 +69,23 @@ export const SearchBar = ({
             borderWidth: 0,
           },
         }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position='start'>
-              <StyledIConButton onClick={() => {}}>
-                <SearchIcon fontSize='small' />
-              </StyledIConButton>
-            </InputAdornment>
-          ),
-          endAdornment: !!formValue.search.length && (
-            <InputAdornment position='end'>
-              <StyledIConButton onClick={() => setValues({ search: '' })}>
-                <CloseIcon fontSize='small' />
-              </StyledIConButton>
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position='start'>
+                <StyledIConButton onClick={() => {}}>
+                  <SearchIcon fontSize='small' />
+                </StyledIConButton>
+              </InputAdornment>
+            ),
+            endAdornment: !!formValue.search.length && (
+              <InputAdornment position='end'>
+                <StyledIConButton onClick={() => setValues({ search: '' })}>
+                  <CloseIcon fontSize='small' />
+                </StyledIConButton>
+              </InputAdornment>
+            ),
+          },
         }}
         size='small'
         onChange={handleChange}

@@ -5,6 +5,7 @@ import { RootState } from '../store'
 interface UiState {
   openProfileDrawer: boolean
   openContactExplorerModal: boolean
+  searchValue?: string
   isLoading: boolean
   isLoadingChats?: boolean
   isMobile?: boolean
@@ -33,6 +34,9 @@ export const uiSlice = createSlice({
     setIsLoadingChats: (state, action) => {
       state.isLoadingChats = action.payload
     },
+    setSearchValue: (state, action) => {
+      state.searchValue = action.payload
+    },
   },
 })
 
@@ -42,6 +46,7 @@ export const {
   toggleContactExplorerModal,
   setIsLoading,
   setIsLoadingChats,
+  setSearchValue,
 } = uiSlice.actions
 
 // The function below is called a selector and allows us to select a value from
@@ -50,5 +55,6 @@ export const {
 export const selectProfileDrawer = (state: RootState) => state.ui.openProfileDrawer
 export const selectIsLoading = (state: RootState) => state.ui.isLoading
 export const selectUiState = (state: RootState) => state.ui
+export const selectSearchValue = (state: RootState) => state.ui.searchValue
 
 export default uiSlice.reducer

@@ -1,5 +1,6 @@
 import { ApiAdapter } from '../adapter.api'
 import { headerToken } from '../config.api'
+import { SearchResponse } from '../responses'
 
 const api = new ApiAdapter()
 
@@ -10,10 +11,7 @@ export class ChatService {
    * @return Chat[]
    */
   static async searchIntoChats(searchTerm: string) {
-    return await api.get('/chats/search', {
-      params: {
-        searchTerm,
-      },
+    return await api.get<SearchResponse>(`/chats/search/${searchTerm}`, {
       headers: {
         Authorization: headerToken(),
       },

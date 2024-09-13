@@ -7,14 +7,16 @@ import { CircleAvatar, CircleContainer, TruncatedText } from '../../../component
 import { useAppDispatch, useAppSelector, useStyles } from '../../../hooks'
 import { selectActiveChat, setActiveChat } from '../../../redux/slices/chat.slice'
 import { upperCammelCase } from '../../../utils'
-import { selectAuthUser } from '../../../redux/slices/auth.slice'
+import { selectAuthState, selectAuthUser } from '../../../redux/slices/auth.slice'
+import { socket } from '../../../socket'
 
 interface Props {
   data: ChatModel
+  fromFilteredList?: boolean
 }
 
 /// Component which represent a direct chat between users
-export const Chat = ({ data }: Props) => {
+export const Chat = ({ data, fromFilteredList = false }: Props) => {
   const styles = useStyles()
   const theme = useTheme()
   const dispatch = useAppDispatch()
@@ -22,6 +24,7 @@ export const Chat = ({ data }: Props) => {
   const [isActive, setIsActive] = useState(false)
   const loggedUser = useAppSelector(selectAuthUser)
   const activeChat = useAppSelector(selectActiveChat)
+  const authState = useAppSelector(selectAuthState)
   const unreadMessageCount = faker.number.int({ min: 0, max: 2 })
   const user = data.participants[0].user
 
@@ -46,7 +49,11 @@ export const Chat = ({ data }: Props) => {
   const isLastMessageFromLoggedUser = () => data.messages[0].from.uid === loggedUser?.uid
 
   const handleClick = () => {
-    dispatch(setActiveChat({ chat: data }))
+    if (fromFilteredList) {
+      socket.emit('start_chat', { to: user.uid, from: authState.user.uid })
+    } else {
+      dispatch(setActiveChat({ chat: data }))
+    }
   }
 
   useEffect(() => {
